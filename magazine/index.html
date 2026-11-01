@@ -10,7 +10,7 @@
 <meta name="theme-color" content="#FFFFFF">
 <link rel="preload" href="../assets/fonts/google-sans.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" as="image" href="../assets/img/session-wide-1200.webp" fetchpriority="high">
-<link rel="stylesheet" href="assets/css/site.css?v=202611011154">
+<link rel="stylesheet" href="assets/css/site.css?v=202611011228">
 <script>if(matchMedia("(prefers-reduced-motion: no-preference)").matches)document.documentElement.classList.add("anim")</script>
 </head>
 <body>
@@ -39,10 +39,10 @@
       <li><a href="#contact">צור קשר</a></li>
     </ul>
     <div class="md-moves">
-      <a class="s-focus" href="#m1"><span class="no">01</span>פגישת פוקוס</a>
-      <a class="s-vip" href="#m2"><span class="no">02</span>IntroPro VIP</a>
-      <a class="s-method" href="#m3"><span class="no">03</span>שיטה עם שם</a>
-      <a class="s-self" href="#m4"><span class="no">04</span>לעבוד לבד</a>
+      <a class="s-focus" href="#m1"><span class="sym" aria-hidden="true"><svg focusable="false"><use href="#s-target"/></svg></span>פגישת פוקוס</a>
+      <a class="s-vip" href="#m2"><span class="sym" aria-hidden="true"><svg focusable="false"><use href="#s-plane"/></svg></span>IntroPro VIP</a>
+      <a class="s-method" href="#m3"><span class="sym" aria-hidden="true"><svg focusable="false"><use href="#s-ring"/></svg></span>שיטה עם שם</a>
+      <a class="s-self" href="#m4"><span class="sym" aria-hidden="true"><svg focusable="false"><use href="#s-dot"/></svg></span>לעבוד לבד</a>
     </div>
     <a class="btn primary" href="#contact">לשיחת היכרות</a>
   </nav>
@@ -77,27 +77,27 @@
     <h2 class="sr" id="moves-h">ארבעת המהלכים</h2>
     <ol class="rows">
       <li class="row s-focus rv" id="m1">
-        <span class="no" aria-hidden="true">01</span>
+        <span class="sym" aria-hidden="true"><svg focusable="false"><use href="#s-target"/></svg></span>
         <div class="rt"><h3>פגישת פוקוס</h3><p>שעה אחת על אתגר אחד, עם כל מה שאני יודע.</p></div>
-        <img class="thumb" src="../assets/img/verbs-700.webp" alt="" width="700" height="560" loading="lazy" decoding="async">
+        <span class="thumb"><img src="../assets/img/verbs-700.webp" alt="" width="700" height="560" loading="lazy" decoding="async"></span>
         <a class="go" href="services/focus/">אני רוצה פגישת פוקוס <svg class="ic ar" aria-hidden="true" focusable="false"><use href="#i-arrow"/></svg></a>
       </li>
       <li class="row s-vip rv" id="m2">
-        <span class="no" aria-hidden="true">02</span>
+        <span class="sym" aria-hidden="true"><svg focusable="false"><use href="#s-plane"/></svg></span>
         <div class="rt"><h3>IntroPro VIP</h3><p>3 מפגשים אישיים, ויוצאים עם הצגה עצמית שמרגישה שלכם.</p></div>
-        <img class="thumb" src="../assets/img/session-talk-900.webp" alt="" width="900" height="720" loading="lazy" decoding="async">
+        <span class="thumb"><img src="../assets/img/session-talk-900.webp" alt="" width="900" height="720" loading="lazy" decoding="async"></span>
         <a class="go" href="services/intropro-vip/">או, כזה אני רוצה! <svg class="ic ar" aria-hidden="true" focusable="false"><use href="#i-arrow"/></svg></a>
       </li>
       <li class="row s-method rv" id="m3">
-        <span class="no" aria-hidden="true">03</span>
+        <span class="sym" aria-hidden="true"><svg focusable="false"><use href="#s-ring"/></svg></span>
         <div class="rt"><h3>שיטה עם שם</h3><p>מה שאתם כבר עושים עם לקוחות, הופך לשיטה שאפשר למכור.</p></div>
-        <img class="thumb" src="../assets/img/notebook-800.webp" alt="" width="800" height="640" loading="lazy" decoding="async">
+        <span class="thumb"><img src="../assets/img/notebook-800.webp" alt="" width="800" height="640" loading="lazy" decoding="async"></span>
         <a class="go" href="services/method/">אני רוצה שיטה משלי <svg class="ic ar" aria-hidden="true" focusable="false"><use href="#i-arrow"/></svg></a>
       </li>
       <li class="row s-self rv" id="m4">
-        <span class="no" aria-hidden="true">04</span>
+        <span class="sym" aria-hidden="true"><svg focusable="false"><use href="#s-dot"/></svg></span>
         <div class="rt"><h3>לעבוד לבד</h3><p>המדריך החינמי וקורס IntroPro, למי שמעדיף להתחיל לבד.</p></div>
-        <img class="thumb" src="../assets/img/cards-sofa-800.webp" alt="" width="800" height="640" loading="lazy" decoding="async">
+        <span class="thumb"><img src="../assets/img/cards-sofa-800.webp" alt="" width="800" height="640" loading="lazy" decoding="async"></span>
         <a class="go" href="services/self-study/">להתחיל לבד <svg class="ic ar" aria-hidden="true" focusable="false"><use href="#i-arrow"/></svg></a>
       </li>
     </ol>
@@ -125,13 +125,13 @@
       <a class="go rv" href="about/">עוד עליי <svg class="ic ar" aria-hidden="true" focusable="false"><use href="#i-arrow"/></svg></a>
     </div>
     <figure class="about-ph rv">
-      <img src="../assets/img/portrait-green-1400.webp" srcset="../assets/img/portrait-green-800.webp 800w, ../assets/img/portrait-green-1400.webp 1400w" sizes="(max-width: 1023px) 100vw, 40vw" alt="אלמוג מועלם בחולצה ירוקה, מחייך, מול קיר כחול" width="1400" height="1120" loading="lazy" decoding="async">
+      <div class="frame"><img src="../assets/img/portrait-green-1400.webp" srcset="../assets/img/portrait-green-800.webp 800w, ../assets/img/portrait-green-1400.webp 1400w" sizes="(max-width: 1023px) 100vw, 40vw" alt="אלמוג מועלם בחולצה ירוקה, מחייך, מול קיר כחול" width="1400" height="1120" loading="lazy" decoding="async"></div>
     </figure>
   </section>
 
   <!-- 5. שלבים -->
   <section class="steps" aria-label="שלבים">
-    <ol class="step-row">
+    <ol class="step-row io">
       <li class="step rv"><span class="sn">1</span><h3>שיחת היכרות</h3><p>בוחרים יחד את מה שהכי דחוף לסדר.</p></li>
       <li class="step rv"><span class="sn">2</span><h3>תהליך קצר וממוקד</h3><p>2-3 מפגשים עם תבניות פרקטיות.</p></li>
       <li class="step rv"><span class="sn">3</span><h3>יוצאים עם תוצר</h3><p>משהו שעובד כבר מחר בבוקר.</p></li>
@@ -162,7 +162,7 @@
 
   <!-- 7. הסמכות · 8. קורס -->
   <section class="strip" aria-label="הסמכות וקורס">
-    <p class="certs rv"><span class="k">הסמכות:</span> <span class="lat">ACC · CCIL</span> · [הסמכה נוספת]</p>
+    <p class="certs rv"><span class="k">הסמכות:</span> <span class="ct lat">ACC</span> <span class="ct lat">CCIL</span></p>
     <a class="course rv" href="services/self-study/"><span class="k">קורס דיגיטלי</span> <span>מעדיפים לשחק לבד?</span> <strong>IntroPro</strong> <svg class="ic ar" aria-hidden="true" focusable="false"><use href="#i-arrow"/></svg></a>
   </section>
 
@@ -185,7 +185,7 @@
   </div>
 
   <div class="ft-bar">
-    <a class="ft-logo" href="#top" aria-label="אימון יוצר, לראש העמוד"><img src="../assets/brand/logo-light.svg" alt="" width="150" height="157" loading="lazy"></a>
+    <a class="ft-logo rv" href="#top" aria-label="אימון יוצר, לראש העמוד"><img src="../assets/brand/logo-light.svg" alt="" width="150" height="157" loading="lazy"></a>
     <nav class="ft-nav" aria-label="קישורים בתחתית">
       <a href="#services">שירותים</a>
       <a href="#about">אודות</a>
@@ -210,8 +210,8 @@
 
 <a class="fab fab-a11y" href="accessibility/" aria-label="התאמות תצוגה"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-access"/></svg></a>
 
-<script src="assets/js/site.js?v=202611011154" defer></script>
-<script src="../assets/js/a11y.js?v=202611011154" defer></script>
+<script src="assets/js/site.js?v=202611011228" defer></script>
+<script src="../assets/js/a11y.js?v=202611011228" defer></script>
 <script src="https://crm.liavmatzri.co.il/review.js" defer></script>
 </body>
 </html>

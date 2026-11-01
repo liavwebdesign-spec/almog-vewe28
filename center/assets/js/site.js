@@ -27,7 +27,9 @@
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });
     }, { rootMargin: "0px 0px -8% 0px" });
-    els.forEach(function (el) {
+    // .io elements are never hidden; they only get .in (a line that draws, a marker that sweeps)
+    var all = Array.prototype.slice.call(els).concat(Array.prototype.slice.call(document.querySelectorAll(".io")));
+    all.forEach(function (el) {
       // what is already on screen at load shows at once (no blank first paint)
       var r = el.getBoundingClientRect();
       if (r.top < window.innerHeight) el.classList.add("in"); else io.observe(el);
