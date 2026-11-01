@@ -1,0 +1,41 @@
+/* אימון יוצר · סקיצה 4 "השילוב", גרסה בהירה. אותו עמוד ואותם טקסטים, על לבן עם הרשת הכתומה כמו נייר מילימטרי.
+   זו הדרך החלופית שאלמוג כתב ("2 עם השילוב של 3"), ותשובה לחשש שלו שרקע כהה יגביל את החומרים השיווקיים.
+   נטען אחרי site.css ומחליף רק צבעים: כרטיס המדריך והסיום נשארים כחולים, כמו בחפיסה. */
+
+:root{
+  --ground:#FFFFFF;
+  --fg:#143D6B;--fg-soft:#3E5675;--fg-mute:#56698A;--fg-line:rgba(20,61,107,.16);
+  /* on white the grid needs a little more ink to read as graph paper */
+  --gl:rgba(246,151,48,.075);--gl2:rgba(246,151,48,.2);
+  --edge-d:2px solid var(--ink);
+  --sh-d:-4px 4px 0 var(--sh-tint);
+}
+
+/* the hard shadows of the magazine, in its pale blue instead of near-black */
+.btn:active{box-shadow:-2px 2px 0 var(--sh-tint)}
+@media (hover:hover) and (pointer:fine){
+  .btn:hover{box-shadow:-6px 6px 0 var(--sh-tint)}
+  .hnav a:hover{background:rgba(20,61,107,.06)}
+}
+.hd.solid{box-shadow:0 1px 0 rgba(246,151,48,.5)}
+
+/* the guide card stays the blue card from the deck */
+.bonus-card{--fg:#F3F6FA;--fg-soft:rgba(243,246,250,.84);color:var(--fg);border-color:var(--ink)}
+
+/* the sheet becomes a pale page so it still reads as a page on white; the cards on it turn white */
+.sheet{margin-bottom:var(--sec);background:var(--paper-2)}
+.q,.certs,.course{background:var(--paper)}
+.q-tag{background:var(--paper-2)}
+@media (hover:hover) and (pointer:fine){.course:hover{background:var(--wash)}}
+
+/* the closing and footer: a deep blue band with the same grid, the strong ending */
+.ft{--fg:#F3F6FA;--fg-soft:rgba(243,246,250,.84);--fg-mute:#A3B7D1;--fg-line:rgba(243,246,250,.16);--edge-d:2px solid rgba(243,246,250,.88);
+  --gl:rgba(246,151,48,.075);--gl2:rgba(246,151,48,.17);
+  color:var(--fg);background-color:#0A1A2E;
+  background-image:linear-gradient(90deg,var(--gl2) 1px,transparent 1px),linear-gradient(var(--gl2) 1px,transparent 1px),
+    linear-gradient(90deg,var(--gl) 1px,transparent 1px),linear-gradient(var(--gl) 1px,transparent 1px);
+  background-size:var(--major) var(--major),var(--major) var(--major),var(--cell) var(--cell),var(--cell) var(--cell)}
+.ft :focus-visible{outline-color:#F3F6FA}
+@media (hover:hover) and (pointer:fine){.ft .social a:hover{background:#F3F6FA;color:#0A1A2E}}
+
+html.a11y-contrast .ft{background-image:none}
