@@ -1,5 +1,6 @@
 /* אימון יוצר · סקיצה 1 "המרכז" · s13 כהה יוקרתי על נייבי המותג (עור מותאם) · מסגרת נוזלית · Google Sans (X11)
    אלמוג במרכז המסלול של הלוגו, ארבעת המהלכים יושבים עליו. מבטא אחד (כתום) לפעולות; צבעי השירותים רק בסימני השירות ובפני הקלף.
+   מקצב: כחול (פתיחה) · דף לבן (המהלכים והמדריך) · כחול (אודות ושלבים) · דף לבן (המלצות) · כחול (סיום).
    בלי מספור לשירותים (הם לא רצף) ובלי טקסטורה. תנועה: transform ו-opacity בלבד, רק תחת html.anim, ונעצרת ב"עצירת אנימציות". */
 
 @font-face{font-family:'Google Sans';src:url('../../../assets/fonts/google-sans.woff2') format('woff2');font-weight:400 700;font-style:normal;font-display:swap}
@@ -274,6 +275,26 @@ ol,ul{padding:0;list-style:none}
   @keyframes drift{from{translate:0 -3%}to{translate:0 3%}}
 }
 
+/* ---------- white sheets: the moves and the quotes sit on white cards laid on the navy table ---------- */
+.sheet{--sheet-m:clamp(8px, 1.2vw, 24px);
+  --ink:#0D2138;--ink-soft:rgba(13,33,56,.8);--muted:#4F6680;--surface:#F3F5F8;--surface-hi:#E7ECF3;--orange-t:#A84F08;
+  margin-inline:var(--sheet-m);border-radius:clamp(20px, 2.4vw, 44px);background:var(--white);color:var(--ink);padding-block:clamp(36px, 3.6vw, 72px)}
+.sheet > section{padding-inline:max(16px, calc(var(--gutter) - var(--sheet-m)))}
+.sheet .moves{padding-top:0;padding-bottom:clamp(36px, 3.6vw, 72px)}
+.sheet .quotes{padding-top:0}
+.steps + .sheet{margin-top:var(--sec)}
+.ft{margin-top:clamp(40px, 4vw, 80px)}
+.sheet :is(.go,.moves-foot span,.q-tag,.course strong,.course .ar){color:var(--orange-t)}
+.sheet .btn.ghost:hover{background:var(--surface-hi)}
+/* the guide stays a navy card inside the white sheet */
+.sheet .bonus-in{--ink:#F4EFE6;--ink-soft:rgba(244,239,230,.84);--muted:#A7BEDA;background:var(--ground);color:var(--ink);border-radius:clamp(10px, 1vw, 18px)}
+.sheet .book{box-shadow:0 14px 34px rgba(4,12,22,.4)}
+/* each sheet is laid down as it comes in: from a touch smaller and lower to flat on the table */
+@supports (animation-timeline:view()){
+  .anim .sheet{animation:lay linear both;animation-timeline:view();animation-range:entry 0% entry 55%}
+  @keyframes lay{from{scale:.965;translate:0 28px}}
+}
+
 /* ---------- tablet and phone ---------- */
 @media (max-width:1180px){
   .move-grid{grid-template-columns:repeat(2, minmax(0,1fr))}
@@ -371,7 +392,7 @@ html.a11y-links a{text-decoration:underline !important;text-underline-offset:3px
 html.a11y-font :is(body,h1,h2,h3,.btn,button){font-family:Arial,sans-serif !important}
 html.a11y-spacing :is(p,li){line-height:1.95 !important;word-spacing:.12em}
 html.a11y-still *,html.a11y-still *::before,html.a11y-still *::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}
-html.a11y-still :is(.ring,.me img,.about-ph img){animation:none !important}
+html.a11y-still :is(.ring,.me img,.about-ph img,.sheet){animation:none !important}
 @media (forced-colors:active){:focus-visible{outline:2px solid CanvasText}}
 .a11y-panel{--ink:#1E2B3B;--muted:#56606E;color:#1E2B3B}
 .fab{background:var(--orange);color:var(--ground);box-shadow:0 8px 22px rgba(4,12,22,.4)}
