@@ -1,6 +1,6 @@
-/* אימון יוצר · סקיצה 4 "השילוב", גרסה בהירה. אותו עמוד ואותם טקסטים, על לבן עם אותם קווי עמודות כתומים.
-   זו הדרך החלופית שאלמוג כתב ("2 עם השילוב של 3"), ותשובה לחשש שלו שרקע כהה יגביל את החומרים השיווקיים.
-   נטען אחרי site.css ומחליף רק צבעים: כרטיס המדריך והסיום נשארים כחולים, כמו בחפיסה. */
+/* אימון יוצר · סקיצה 4 "השילוב", גרסה בהירה. אותו עמוד ואותם טקסטים, על לבן.
+   הגרסה שאלמוג בחר (1.11: "הגרסה הבהירה מתאימה לי יותר"). נטען אחרי site.css ומחליף רק צבעים:
+   כרטיס המדריך והסיום נשארים כחולים, כמו בחפיסה. במקום קווי העמודות ("תבניתיים"), רשת הקורים מסקיצת הלוגו שלו (web.js). */
 
 :root{
   --ground:#FFFFFF;
@@ -39,3 +39,34 @@
 @media (hover:hover) and (pointer:fine){.ft .social a:hover{background:#F3F6FA;color:#0A1A2E}}
 
 html.a11y-contrast .ft{background-image:none}
+
+/* no column lines here: Almog found them templated. What he meant is the web around the ring in his logo sketch */
+body,.md,.ft,:is(.hero,.moves,.about,.steps,.closing){background-image:none}
+.grid:not(.hero){border-top:0}
+
+/* the web: orange knots on hairlines so faint they read as a trace, not a pattern */
+.web{position:absolute;z-index:-1;pointer-events:none}
+.web svg{display:block;width:100%;height:100%;overflow:visible}
+.web line{stroke:rgba(246,151,48,.42);stroke-width:1;stroke-dasharray:1;stroke-dashoffset:0}
+.web circle{fill:var(--orange);opacity:.8}
+/* around the photo, the way the web sits around the ring of the logo: dense by the frame, gone at the edges */
+.hero-vis{isolation:isolate}
+.web-hero{inset:-24% -28%;-webkit-mask-image:radial-gradient(closest-side, #000 72%, transparent);mask-image:radial-gradient(closest-side, #000 72%, transparent)}
+/* between the parts: a band astride the seam, in the padding above the next part's content */
+:is(.about,.sheet,.ft){position:relative;isolation:isolate}
+.web-seam{inset-inline:0;top:0;height:calc(var(--sec) * 1.6);transform:translateY(-50%);
+  -webkit-mask-image:linear-gradient(transparent, #000 35%, #000 65%, transparent);mask-image:linear-gradient(transparent, #000 35%, #000 65%, transparent)}
+.ft .web line{stroke:rgba(246,151,48,.4)}
+/* under the blue guide card the band stays in the gap below it, so no line crosses the card */
+.about .web-seam{transform:none;height:var(--sec)}
+
+/* the lines draw once, from the start of the reading line, and a few knots breathe slowly */
+.anim .web line{transition:stroke-dashoffset 1.6s var(--ease) var(--d, 0s)}
+.anim .web circle{transition:opacity 1s var(--ease) calc(var(--d, 0s) + .3s)}
+.anim .web.wait line{stroke-dashoffset:1}
+.anim .web.wait circle{opacity:0}
+.anim .web:not(.wait) .breathe{animation:breathe 5s ease-in-out var(--b, 0s) infinite}
+@keyframes breathe{50%{opacity:.18}}
+html.a11y-still .web .breathe{animation:none}
+html.a11y-contrast .web{display:none}
+@media (max-width:760px){.web-hero{inset:-14% -10%}}
