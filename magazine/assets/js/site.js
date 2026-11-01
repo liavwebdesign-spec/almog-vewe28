@@ -8,11 +8,13 @@
   var lastY = window.scrollY, ticking = false, solid = null, away = null;
   function onScroll() {
     var y = window.scrollY;
-    var s = y > 24, a = y > 320 && y > lastY + 2;
-    if (y < lastY - 2 || y < 320) a = false;
+    // hide or show only after a real move (12px), so slow or momentum scrolling never flips it back and forth
+    var s = y > 24, d = y - lastY, a = away;
+    if (y < 320) { a = false; lastY = y; }
+    else if (Math.abs(d) > 12) { a = d > 0; lastY = y; }
     if (s !== solid) { hd.classList.toggle("solid", s); solid = s; }
     if (a !== away && !document.body.classList.contains("menu-open")) { hd.classList.toggle("away", a); away = a; }
-    lastY = y; ticking = false;
+    ticking = false;
   }
   window.addEventListener("scroll", function () { if (!ticking) { ticking = true; requestAnimationFrame(onScroll); } }, { passive: true });
   onScroll();

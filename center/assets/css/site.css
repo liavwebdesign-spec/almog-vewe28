@@ -75,7 +75,7 @@ ol,ul{padding:0;list-style:none}
 
 /* ---------- header: the full logo hangs at the start, legible (96px) ---------- */
 .hd{position:fixed;inset-inline:0;top:0;z-index:50;display:flex;align-items:center;gap:clamp(12px, 2vw, 40px);height:124px;padding-inline:var(--gutter);
-  transition:transform .35s var(--ease)}
+  transition:transform .35s var(--ease),height .3s var(--ease)}
 .hd::before{content:"";position:absolute;inset:0;background:rgba(10,26,45,.94);box-shadow:0 10px 30px rgba(4,12,22,.35);opacity:0;transition:opacity .3s var(--ease);z-index:-1}
 .hd.solid{height:112px}
 .hd.solid::before{opacity:1}
