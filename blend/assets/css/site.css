@@ -1,5 +1,5 @@
 /* אימון יוצר · סקיצה 4 "השילוב" · לפי המייל של אלמוג מ-1.11: המגזין (2) כבסיס, השירותים וכרטיס המדריך מהחפיסה (3),
-   מראה כהה יותר מהמרכז (1), ורשת כתומה דקה כמו נייר מילימטרי, ל"לוק מדעי". מסגרת נוזלית · Google Sans (X11).
+   מראה כהה יותר מהמרכז (1), וקווי רשת כתומים דקים ל"לוק מדעי": לא טפט של נייר מילימטרי, אלא קווי העמודות של העמוד עצמו, שהתוכן נשען עליהם. מסגרת נוזלית · Google Sans (X11).
    הסימון: קו כתום דק מתחת למילה (לא מרקר מאחוריה), כדי שיחזור גם בחומרים השיווקיים. ההדגשות בבולד נשארות.
    ההמלצות וההסמכות על דף לבן בשפת המגזין. בלי מספור לשירותים, בלי כפתור מדריך בפתיחה.
    תנועה: transform ו-opacity בלבד (והקו), רק תחת html.anim, ונעצרת ב"עצירת אנימציות". */
@@ -10,9 +10,8 @@
   /* the dark table */
   --ground:#0A1A2E;--ground-2:#06121F;--raise:#143D6B;
   --fg:#F3F6FA;--fg-soft:rgba(243,246,250,.84);--fg-mute:#A3B7D1;--fg-line:rgba(243,246,250,.16);
-  /* the orange grid: a fine cell and a stronger line every fifth one */
-  --cell:32px;--major:160px;
-  --gl:rgba(246,151,48,.075);--gl2:rgba(246,151,48,.17);
+  /* the orange rules: the page's own column lines, drawn as a designer's layout grid */
+  --rule:rgba(246,151,48,.2);
   /* the white sheet (and the toolbar panel, which reads these) */
   --paper:#FFFFFF;--paper-2:#F3F5F8;
   --ink:#143D6B;--ink-2:#0F2F54;--muted:#4A5F7C;--line:#D3DCE7;
@@ -52,12 +51,22 @@
 
 *,*::before,*::after{box-sizing:border-box}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;overflow-x:clip;scroll-padding-top:132px}
-/* the grid is one sheet of graph paper under the whole page, so its lines never break between sections */
+/* the grid is structure, not wallpaper. Two hairlines run the whole page on its edges; each section then draws its own
+   column lines, in the gaps between its own columns (four under the cards, three under the steps, the split of a two-column
+   section), with a hairline across its top. The content sits on the lines, like a magazine whose grid changes per spread. */
 body{margin:0;overflow-x:clip;color:var(--fg);font-family:var(--font);font-size:var(--fs-body);line-height:1.66;-webkit-font-smoothing:antialiased;
-  background-color:var(--ground);
-  background-image:linear-gradient(90deg,var(--gl2) 1px,transparent 1px),linear-gradient(var(--gl2) 1px,transparent 1px),
-    linear-gradient(90deg,var(--gl) 1px,transparent 1px),linear-gradient(var(--gl) 1px,transparent 1px);
-  background-size:var(--major) var(--major),var(--major) var(--major),var(--cell) var(--cell),var(--cell) var(--cell)}
+  background-color:var(--ground);background-image:linear-gradient(var(--rule),var(--rule)),linear-gradient(var(--rule),var(--rule));background-size:1px 100%;background-repeat:no-repeat;
+  background-position:var(--gutter) 0,right var(--gutter) top 0}
+.grid:not(.hero){border-top:1px solid var(--rule)}
+:is(.hero,.moves,.about,.steps,.closing){--W:calc(100% - 2 * var(--gutter));background-size:1px 100%;background-repeat:no-repeat}
+/* two columns, right to left: the line sits in the gap after the first (right) column */
+.hero{background-image:linear-gradient(var(--rule),var(--rule));background-position:calc(100% - var(--gutter) - (var(--W) - var(--g2)) * .575 - var(--g2) / 2) 0;--g2:clamp(28px, 4.5vw, 104px)}
+.about{background-image:linear-gradient(var(--rule),var(--rule));background-position:calc(100% - var(--gutter) - (var(--W) - var(--g2)) * .5263 - var(--g2) / 2) 0;--g2:clamp(28px, 4.5vw, 104px)}
+.closing{background-image:linear-gradient(var(--rule),var(--rule));background-position:calc(100% - var(--gutter) - (var(--W) - var(--g2)) * .5556 - var(--g2) / 2) 0;--g2:clamp(24px, 4vw, 96px)}
+.moves{--c:calc((var(--W) + var(--gap)) / 4);background-image:linear-gradient(var(--rule),var(--rule)),linear-gradient(var(--rule),var(--rule)),linear-gradient(var(--rule),var(--rule));
+  background-position:calc(var(--gutter) + var(--c) - var(--gap) / 2) 0,calc(var(--gutter) + var(--c) * 2 - var(--gap) / 2) 0,calc(var(--gutter) + var(--c) * 3 - var(--gap) / 2) 0}
+.steps{--c:calc((var(--W) + var(--gap)) / 3);background-image:linear-gradient(var(--rule),var(--rule)),linear-gradient(var(--rule),var(--rule));
+  background-position:calc(var(--gutter) + var(--c) - var(--gap) / 2) 0,calc(var(--gutter) + var(--c) * 2 - var(--gap) / 2) 0}
 img{display:block;max-width:100%;height:auto}
 a{color:inherit;text-decoration:none}
 h1,h2,h3,p,ol,ul,figure,blockquote{margin:0}
@@ -146,28 +155,13 @@ mark{background:none;color:inherit;text-decoration:underline var(--orange);text-
 .ctas{display:flex;flex-wrap:wrap;gap:16px 18px}
 .hero-vis{position:relative;padding:0 0 var(--off) var(--off)}
 .print{position:relative;border:var(--edge-d);background:var(--raise)}
-/* behind the print, a patch of denser graph paper instead of a shadow */
+/* behind the print, an offset orange outline instead of a shadow */
 .print::before,.about-ph::before{content:"";position:absolute;inset:0;z-index:-1;transform:translate(calc(var(--off) * -1), var(--off));
-  border:1px solid rgba(246,151,48,.55);background-color:rgba(246,151,48,.06);
-  background-image:linear-gradient(90deg,rgba(246,151,48,.3) 1px,transparent 1px),linear-gradient(rgba(246,151,48,.3) 1px,transparent 1px);background-size:12px 12px}
+  border:1px solid rgba(246,151,48,.6)}
 .rv-on .hero-vis.in .print::before{animation:drop .9s var(--ease) .35s backwards}
 .rv-on .about-ph.in::before{animation:drop .9s var(--ease) .4s backwards}
 @keyframes drop{from{transform:none;opacity:0}}
 .print img{width:100%;aspect-ratio:1;object-fit:cover;object-position:100% 40%}
-
-/* a few grid cells that fill and fade, slowly, out of step: the one living thing on the cover */
-.cells{position:absolute;inset:0;pointer-events:none;overflow:hidden}
-.cells i{position:absolute;width:calc(var(--cell) - 1px);height:calc(var(--cell) - 1px);background:var(--orange);opacity:0}
-.cells i:nth-child(1){left:calc(var(--cell) * 1 + 1px);top:calc(var(--cell) * 6 + 1px)}
-.cells i:nth-child(2){left:calc(var(--cell) * 2 + 1px);top:calc(var(--cell) * 14 + 1px)}
-.cells i:nth-child(3){left:calc(var(--cell) * 9 + 1px);top:calc(var(--cell) * 26 + 1px)}
-.cells i:nth-child(4){left:calc(var(--cell) * 15 + 1px);top:calc(var(--cell) * 25 + 1px)}
-.cells i:nth-child(5){left:calc(var(--cell) * 20 + 1px);top:calc(var(--cell) * 5 + 1px)}
-.cells i:nth-child(6){left:calc(var(--cell) * 1 + 1px);top:calc(var(--cell) * 22 + 1px)}
-.cells i:nth-child(7){left:calc(var(--cell) * 26 + 1px);top:calc(var(--cell) * 27 + 1px)}
-.anim .cells i{animation:cell 9s var(--ease) infinite;animation-delay:calc(var(--d, 0) * 1s)}
-.cells i:nth-child(2){--d:1.3}.cells i:nth-child(3){--d:2.6}.cells i:nth-child(4){--d:3.9}.cells i:nth-child(5){--d:5.2}.cells i:nth-child(6){--d:6.5}.cells i:nth-child(7){--d:7.8}
-@keyframes cell{0%,100%{opacity:0}12%{opacity:.42}30%{opacity:0}}
 
 /* reveal: hidden only once the script is alive (html.rv-on) */
 .rv-on .rv:not(.in){opacity:0;transform:translateY(16px)}
@@ -302,17 +296,16 @@ mark{background:none;color:inherit;text-decoration:underline var(--orange);text-
 /* ---------- tablet and phone ---------- */
 @media (max-width:1180px){
   .deal{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .moves{background-image:linear-gradient(var(--rule),var(--rule));background-position:50% 0}
   .mcard:nth-child(n){translate:0 0}
 }
 @media (max-width:1023px){
-  :root{--cell:24px;--major:120px}
   .hnav,.hcta{display:none}
   .burger{display:grid;margin-inline-start:auto}
   .hd{height:92px}
   .hd.solid{height:88px}
   .hlogo img{width:72px;height:auto}
   html{scroll-padding-top:104px}
-  .cells{display:none}
   .hero{grid-template-columns:1fr;min-height:0;padding-top:120px;gap:40px}
   .hero h1{max-width:16ch}
   .hero-vis{max-width:560px}
@@ -322,9 +315,11 @@ mark{background:none;color:inherit;text-decoration:underline var(--orange);text-
   .about{grid-template-columns:1fr}
   .about-ph{order:0;max-width:640px}
   .closing{grid-template-columns:1fr;align-items:start}
+  :is(.hero,.about,.closing){background-image:none}
 }
 @media (max-width:640px){
   :root{--off:8px}
+  :is(.moves,.steps){background-image:none}
   .hero{padding-top:108px;padding-bottom:28px;gap:28px}
   .print img{aspect-ratio:16 / 10}
   .hero h1{font-size:calc(clamp(34px, 9.6vw, 44px) * var(--a11y-scale));line-height:1.1}
@@ -399,7 +394,8 @@ html.a11y-contrast :is(p,span,li,h1,h2,h3,small,strong,b,blockquote,figcaption){
 html.a11y-contrast a{color:#ffe14d !important}
 html.a11y-contrast :is(.btn,.btn span,.fab,.a11y-opts button[aria-pressed="true"]){background:#ffe14d !important;color:#000 !important}
 html.a11y-contrast :is(.a11y-opts button:not([aria-pressed="true"]),.a11y-x){background:#000 !important;color:#fff !important;box-shadow:inset 0 0 0 2px #fff !important}
-html.a11y-contrast .cells{display:none}
+html.a11y-contrast .grid{border-color:transparent}
+html.a11y-contrast :is(.hero,.moves,.about,.steps,.closing){background-image:none !important}
 html.a11y-gray{filter:grayscale(1)}
 html.a11y-invert{filter:invert(1) hue-rotate(180deg)}
 html.a11y-invert img{filter:invert(1) hue-rotate(180deg)}
@@ -408,5 +404,4 @@ html.a11y-font :is(body,h1,h2,h3,.btn,button){font-family:Arial,sans-serif !impo
 html.a11y-spacing :is(p,li){line-height:1.95 !important;word-spacing:.12em}
 html.a11y-still *,html.a11y-still *::before,html.a11y-still *::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}
 html.a11y-still .about-ph img{animation:none !important}
-html.a11y-still .cells{display:none}
 @media (forced-colors:active){:focus-visible{outline:2px solid CanvasText}}
