@@ -129,7 +129,7 @@ mark{color:inherit;background:linear-gradient(var(--orange),var(--orange)) no-re
 .rows{border-top:var(--edge)}
 .row{display:grid;grid-template-columns:clamp(120px, 11vw, 200px) minmax(0,1fr) clamp(150px, 15vw, 260px) minmax(200px, auto);align-items:center;gap:clamp(18px, 2.4vw, 48px);
   padding-block:clamp(16px, 1.4vw, 24px);border-bottom:var(--edge)}
-.no{display:grid;place-items:center;aspect-ratio:1;background:var(--c);border:var(--edge);font-family:var(--mono);font-size:var(--fs-num);font-weight:700;line-height:1;letter-spacing:-.06em}
+.row .no{display:grid;place-items:center;aspect-ratio:1;background:var(--c);border:var(--edge);font-family:var(--mono);font-size:var(--fs-num);font-weight:700;line-height:1;letter-spacing:-.06em}
 .rt h3{font-size:var(--fs-h3);font-weight:700;line-height:1.2;letter-spacing:-.01em}
 .rt p{margin-top:6px;max-width:40ch}
 .thumb{width:100%;aspect-ratio:5 / 4;object-fit:cover;border:var(--edge)}
@@ -233,7 +233,7 @@ mark{color:inherit;background:linear-gradient(var(--orange),var(--orange)) no-re
   .ctas{flex-direction:column;align-items:stretch}
   .ctas .btn{white-space:normal}
   .row{grid-template-columns:76px minmax(0,1fr);column-gap:16px;align-items:start}
-  .no{font-size:calc(34px * var(--a11y-scale))}
+  .row .no{font-size:calc(34px * var(--a11y-scale))}
   .thumb{display:none}
   .row .go{grid-column:2}
   .q-grid{grid-template-columns:1fr}
