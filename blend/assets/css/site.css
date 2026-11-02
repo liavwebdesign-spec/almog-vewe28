@@ -50,7 +50,7 @@
 }
 
 *,*::before,*::after{box-sizing:border-box}
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;overflow-x:clip;scroll-padding-top:132px}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;overflow-x:clip;scrollbar-gutter:stable;scroll-padding-top:132px}
 /* the grid is structure, not wallpaper. Two hairlines run the whole page on its edges; each section then draws its own
    column lines, in the gaps between its own columns (four under the cards, three under the steps, the split of a two-column
    section), with a hairline across its top. The content sits on the lines, like a magazine whose grid changes per spread. */

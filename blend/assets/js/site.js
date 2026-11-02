@@ -47,7 +47,7 @@
     md.hidden = !open;
     document.body.classList.toggle("menu-open", open);
     if (open) md.querySelector("a").focus({ preventScroll: true });
-    document.body.style.overflow = open ? "hidden" : "";
+    html.style.overflow = open ? "hidden" : "";
     if (open) { hd.classList.remove("away"); away = false; }
   }
   burger.addEventListener("click", function () { setMenu(burger.getAttribute("aria-expanded") !== "true"); });
