@@ -56,7 +56,7 @@ body,.md,.ft,:is(.hero,.moves,.about,.steps,.closing){background-image:none}
 .menu-open .fab{display:none}
 
 /* a link to a page that isn't built yet: one short line instead of an error page. Goes when the pages exist */
-.sketch-note{position:fixed;z-index:70;inset-inline:var(--gutter);bottom:24px;width:fit-content;margin-inline:auto;padding:12px 18px;border:2px solid var(--orange);
+.sketch-note{position:fixed;z-index:95;inset-inline:var(--gutter);bottom:24px;width:fit-content;margin-inline:auto;padding:12px 18px;border:2px solid var(--orange);
   background:var(--ink);color:#F3F6FA;font-size:var(--fs-ui);line-height:1.4;opacity:0;visibility:hidden;transition:opacity .2s var(--ease),visibility 0s linear .2s}
 .sketch-note.on{opacity:1;visibility:visible;transition-delay:0s}
 @media (max-width:1023px){.sketch-note{bottom:76px}}
