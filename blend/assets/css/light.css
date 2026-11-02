@@ -21,6 +21,7 @@
 
 /* the guide card stays the blue card from the deck */
 .bonus-card{--fg:#F3F6FA;--fg-soft:rgba(243,246,250,.84);color:var(--fg);border-color:var(--ink)}
+.bonus-txt p{margin-top:12px}
 
 /* the sheet becomes a pale page so it still reads as a page on white; the cards on it turn white */
 .sheet{margin-bottom:var(--sec);background:var(--paper-2)}
@@ -39,7 +40,7 @@ body,.md,.ft,:is(.hero,.moves,.about,.steps,.closing){background-image:none}
 .grid:not(.hero){border-top:0}
 
 /* the certifications gather here, each with a line that says what it is (Almog, 2.11) */
-.certs{flex-direction:column;align-items:flex-start;gap:12px;padding-block:clamp(18px, 1.6vw, 26px)}
+.certs{flex-direction:column;align-items:flex-start;gap:12px;padding-block:clamp(18px, 1.6vw, 24px)}
 .cert-list{display:grid;gap:10px;margin:0;padding:0;list-style:none}
 .cert-list li{display:grid;grid-template-columns:4.2em minmax(0,1fr);gap:12px;align-items:baseline}
 .cert-list .ct{justify-self:start}
