@@ -156,3 +156,11 @@ html.a11y-still .scene{animation:none}
   .bonus{padding-top:72px}
   .stage.mini{--W:76px}
 }
+/* the phone gets the full section rhythm, top and bottom. The tightening for "too much empty space" (Almog, 1.11) was about the desktop */
+@media (max-width:767px){
+  :root{--sec:64px}
+  .hero{padding-bottom:var(--sec)}
+  /* the orange card breaks out of the top of the guide card, the section's space starts above it */
+  .bonus{padding-top:calc(var(--sec) + 72px)}
+  :is(.bonus,.about,.steps){padding-bottom:var(--sec)}
+}

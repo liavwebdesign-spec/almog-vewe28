@@ -96,10 +96,17 @@ html:not(.anim) .step h3,html.a11y-still .step h3{color:var(--fg)}
   .hero-vis{height:clamp(320px, 92vw, 400px)}
   /* the route runs down the side, the plane flies down it */
   .steps{position:relative}
-  .route{position:absolute;top:var(--sec);bottom:0;inset-inline-start:calc(var(--gutter) + var(--sn) * .75 - 1px);width:2px;height:auto;margin:0}
+  .route{position:absolute;top:var(--sec);bottom:var(--sec);inset-inline-start:calc(var(--gutter) + var(--sn) * .75 - 1px);width:2px;height:auto;margin:0}
   .route i{transform-origin:50% 0;transform:scaleY(var(--r))}
   .route b{transform:translateY(calc(var(--r) * 100%))}
   .route svg{rotate:-135deg}
   .step{position:relative;gap:6px 14px}
   .step p{margin-inline-start:calc(var(--sn) * 1.5 + 14px)}
+}
+/* the phone gets the full section rhythm, top and bottom. The tightening for "too much empty space" (Almog, 1.11) was about the desktop */
+@media (max-width:767px){
+  :root{--sec:64px}
+  .moves{padding-top:var(--sec)}
+  .bonus{padding-top:var(--sec)}
+  :is(.bonus,.about,.steps){padding-bottom:var(--sec)}
 }
