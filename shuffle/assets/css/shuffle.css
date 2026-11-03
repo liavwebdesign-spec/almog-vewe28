@@ -2,7 +2,7 @@
    אובייקט אחד גדול לכל מסך, על לבן, מט ושקט. CSS תלת-ממדי בלי ספריות, בלי הצמדה בגלילה.
    נטען אחרי light.css. בלי סקריפט ובתנועה מופחתת הכל במצב הסופי. */
 
-:root{--paper-edge:#D3DCE7;--deck-w:clamp(236px, min(28vw, 52svh), 520px)}
+:root{--paper-edge:#D3DCE7;--deck-w:clamp(236px, min(28vw, 46svh), 520px);--fs-lead:calc(clamp(18px, .7vw + .55rem, 20px) * var(--a11y-scale))}
 
 /* ---------- the card: matte, a colour field to the edge, a big mark from the logo cropped by it ---------- */
 .face{position:absolute;inset:0;overflow:hidden;border-radius:calc(var(--W) * .065);background:var(--c);color:var(--ink);
@@ -18,7 +18,7 @@
 .me b{inset-inline:8%;top:5.5%;bottom:auto;font-size:calc(var(--W) * .092)}
 
 /* ---------- 1. the opening: the headline, and the deck that you shuffle yourself ---------- */
-.hero{grid-template-columns:minmax(0,1.14fr) minmax(0,.86fr);min-height:min(100svh, 900px);padding-bottom:clamp(28px, 3vw, 48px)}
+.hero{grid-template-columns:minmax(0,1.14fr) minmax(0,.86fr);min-height:min(100svh, 900px);padding-bottom:clamp(16px, 2vw, 32px);overflow-x:clip}
 .hero h1{font-size:calc(clamp(44px, 5.5vw, 124px) * var(--a11y-scale));line-height:1.05;letter-spacing:-.035em;max-width:none}
 .hero h1 mark{white-space:nowrap}
 .hero .lead{max-width:36ch}
@@ -58,7 +58,7 @@
 /* ---------- 2. the moves: a gallery. Each move has its own room with walls in its colour, one object in it, the words beside it like a label ---------- */
 .moves{padding:0}
 .expo{display:grid;gap:0}
-.ex{display:grid;grid-template-columns:minmax(0,.86fr) minmax(0,1.14fr);align-items:center;gap:clamp(28px, 4.5vw, 104px);padding:clamp(36px, 3.8vw, 72px) var(--gutter);
+.ex{display:grid;grid-template-columns:minmax(0,.86fr) minmax(0,1.14fr);align-items:center;gap:clamp(28px, 4.5vw, 96px);padding:clamp(40px, 3.8vw, 72px) var(--gutter);
   background:#F3F5F8;background:color-mix(in srgb, var(--c) 26%, #fff)}
 .ex .stage{justify-self:center}
 .ex:nth-child(even){grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr)}
@@ -68,22 +68,23 @@
 .cap p{max-width:26ch;font-size:calc(clamp(21px, 1.9vw, 38px) * var(--a11y-scale));line-height:1.35;color:var(--ink)}
 .cap .go{font-size:var(--fs-ui)}
 :is(.s-vip,.s-method) .cap .go{text-decoration-color:var(--ink)}
-.moves-foot{margin:clamp(24px, 2.6vw, 44px) var(--gutter) 0}
+.moves-foot{margin:clamp(24px, 2.6vw, 40px) var(--gutter) 0}
+.moves-foot,.direct,.about p{max-width:58ch}
 
 /* ---------- 3. the guide: the blue card from the deck, a large orange card breaking out of it ---------- */
-.bonus-card{rotate:0deg;overflow:visible;gap:clamp(24px, 4vw, 80px)}
+.bonus-card{rotate:0deg;overflow:visible;gap:clamp(24px, 4vw, 72px)}
 .b-stage{--W:clamp(130px, 14vw, 250px);margin-block:calc(var(--W) * -.34);z-index:1}
 .b-stage::after{content:none}
 .b-face{--c:var(--orange);display:grid;place-items:center}
 .b-face .ic{width:42%;height:auto;aspect-ratio:1}
-.bonus{padding-top:clamp(36px, 4vw, 72px);padding-bottom:0}
+.bonus{padding-top:clamp(40px, 4vw, 72px);padding-bottom:0}
 
 /* ---------- 4. about: his photo printed on a wide card ---------- */
 .about-ph{margin:0;justify-self:center;width:100%}
 .about-ph::before{content:none}
 .stage.wide{--W:clamp(290px, 42vw, 860px);width:min(100%, var(--W));aspect-ratio:7 / 5;margin-inline:auto}
-.face.ph{--c:#fff;border:calc(var(--W) * .018) solid #fff}
-.face.ph img{width:100%;height:100%;aspect-ratio:auto;object-fit:cover;object-position:50% 30%;scale:none}
+.face.ph{--c:#fff;padding:calc(var(--W) * .018)}
+.face.ph img{width:100%;height:100%;aspect-ratio:auto;border-radius:calc(var(--W) * .048);object-fit:cover;object-position:50% 30%;scale:none}
 .rv-on .about-ph img{animation:none}
 @supports (animation-timeline:view()){.about-ph img{scale:none}.rv-on .about-ph.in img{animation:none}}
 
@@ -104,7 +105,9 @@
 .closing-act{grid-area:a}
 .hand{grid-area:hand;position:relative;align-self:end;justify-self:center;--W:clamp(150px, 14.5vw, 280px);--f:1;width:var(--W);height:calc(var(--W) * 1.12);margin-bottom:calc(var(--W) * -.26 - clamp(40px, 4vw, 72px))}
 .hc{position:absolute;inset:0 0 auto;height:calc(var(--W) * 1.4);transform-origin:50% 118%;transform:rotate(calc(var(--s) * var(--f) * 15deg))}
-.hc .face{box-shadow:0 0 0 1px rgba(255,255,255,.22),0 12px 30px -10px rgba(3,10,19,.6)}
+.hc .face{box-shadow:0 0 0 2px var(--ink)}
+/* the band the hand rises from behind: a surface, not a line */
+.ft-bar{border-top:0;background:rgba(255,255,255,.06)}
 
 /* ---------- accessibility modes ---------- */
 html.a11y-contrast :is(.face:not(.ph),.gc-b){background:#000 !important;color:#fff !important;border-color:#fff}
@@ -138,7 +141,11 @@ html.a11y-still .scene{animation:none}
   .hand{--W:clamp(150px, 34vw, 220px);margin-top:12px}
 }
 @media (max-width:640px){
+  .hero{gap:12px;padding-bottom:8px}
   .hero h1{font-size:calc(clamp(36px, 10.6vw, 50px) * var(--a11y-scale));line-height:1.06}
+  /* the shuffle button beside the deck, so the two actions stay on the first screen */
+  .hero-vis{flex-direction:row;justify-content:center;width:100%;gap:12px;margin-top:12px;--W:clamp(136px, 30svh - 70px, 230px)}
+  .shuffle{flex-shrink:0}
   /* phone: the card above its words, a single column that reads straight down */
   .ex,.ex:nth-child(even){grid-template-columns:minmax(0,1fr);gap:clamp(20px, 6vw, 32px);padding-block:clamp(32px, 9vw, 48px)}
   .ex:nth-child(even) .stage{order:0}

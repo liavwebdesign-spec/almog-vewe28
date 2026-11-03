@@ -9,6 +9,7 @@
   var dcs = Array.prototype.slice.call(deck.querySelectorAll(".dc"));
   var hand = document.querySelector(".hand");
   var wide = matchMedia("(min-width:1024px)");
+  var phone = matchMedia("(max-width:640px)");
   var mouse = matchMedia("(hover:hover) and (pointer:fine)");
   var N = dcs.length, CUT = 5, DZ = 4, EASE = 0.14;
 
@@ -52,7 +53,8 @@
       spl = Math.max(spl, s);
       var za = (N - 1 - a) * DZ, zb = (N - 1 - b) * DZ;
       var z = za + (zb - za) * smooth(clamp((ri - 0.28) / 0.44));
-      var reach = wide.matches ? (upper ? 0.2 : -0.27) : (upper ? 0.26 : -0.34);   // both piles stay on the screen and off the headline
+      // both piles stay on the screen and off the headline; on a phone the deck sits by the edge, so the cut opens towards the middle
+      var reach = wide.matches ? (upper ? 0.2 : -0.27) : phone.matches ? (upper ? 0.08 : -0.5) : (upper ? 0.26 : -0.34);
       var rel = upper ? a - (N - CUT - 1) / 2 : a - (N - CUT) - (CUT - 1) / 2;     // its place inside its pile: the pile opens a little
       var x = m.w * reach * s + rel * 2.4 * s;
       var y = -m.h * 0.035 * s + rel * 1.2 * s;

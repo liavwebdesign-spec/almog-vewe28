@@ -54,7 +54,7 @@ body,.md,.ft,:is(.hero,.moves,.about,.steps,.closing){background-image:none}
 /* the accessibility button on every screen, the phone included: where the margin is narrower than the button it is a tab
    inside the margin, so it never rides over running text. It steps aside while the menu is open */
 @media (max-width:1180px){
-  .fab{display:grid;inset-inline-end:0;width:24px;height:48px;border-inline-end:0;box-shadow:none}
+  .fab{display:grid;inset-inline-end:0;width:24px;height:48px;padding:0;border-inline-end:0;box-shadow:none}
   .fab .ic{width:20px;height:20px}
 }
 .menu-open .fab{display:none}
