@@ -1,0 +1,80 @@
+/* אימון יוצר · סקיצה 4 "השילוב", גרסה בהירה. אותו עמוד ואותם טקסטים, על לבן.
+   הגרסה שאלמוג בחר (1.11: "הגרסה הבהירה מתאימה לי יותר"). נטען אחרי site.css ומחליף רק צבעים:
+   כרטיס המדריך והסיום נשארים כחולים, כמו בחפיסה. בלי קווי עמודות ובלי קורים (אלמוג, 1.11 ו-2.11). */
+
+:root{
+  --ground:#FFFFFF;
+  --fg:#143D6B;--fg-soft:#3E5675;--fg-mute:#56698A;--fg-line:rgba(20,61,107,.16);
+  /* on white the orange rules need a little more ink to read */
+  --rule:rgba(246,151,48,.32);
+  --edge-d:2px solid var(--ink);
+  --sh-d:-4px 4px 0 var(--sh-tint);
+}
+
+/* the hard shadows of the magazine, in its pale blue instead of near-black */
+.btn:active{box-shadow:-2px 2px 0 var(--sh-tint)}
+@media (hover:hover) and (pointer:fine){
+  .btn:hover{box-shadow:-6px 6px 0 var(--sh-tint)}
+  .hnav a:hover{background:rgba(20,61,107,.06)}
+}
+.hd.solid{box-shadow:0 1px 0 rgba(246,151,48,.5)}
+
+/* the guide card stays the blue card from the deck */
+.bonus-card{--fg:#F3F6FA;--fg-soft:rgba(243,246,250,.84);color:var(--fg);border-color:var(--ink)}
+.bonus-txt p{margin-top:12px}
+
+/* the sheet becomes a pale page so it still reads as a page on white; the cards on it turn white */
+.sheet{margin-bottom:var(--sec);background:var(--paper-2)}
+.q,.certs,.course{background:var(--paper)}
+.q-tag{background:var(--paper-2)}
+@media (hover:hover) and (pointer:fine){.course:hover{background:var(--wash)}}
+
+/* the closing and footer: a deep blue band, the strong ending */
+.ft{--fg:#F3F6FA;--fg-soft:rgba(243,246,250,.84);--fg-mute:#A3B7D1;--fg-line:rgba(243,246,250,.16);--edge-d:2px solid rgba(243,246,250,.88);
+  color:var(--fg);background-color:#0A1A2E}
+.ft :focus-visible{outline-color:#F3F6FA}
+@media (hover:hover) and (pointer:fine){.ft .social a:hover{background:#F3F6FA;color:#0A1A2E}}
+
+/* no column lines here: Almog found them templated */
+body,.md,.ft,:is(.hero,.moves,.about,.steps,.closing){background-image:none}
+.grid:not(.hero){border-top:0}
+
+/* the certifications gather here, each with a line that says what it is (Almog, 2.11) */
+.certs{flex-direction:column;align-items:flex-start;gap:12px;padding-block:clamp(18px, 1.6vw, 24px)}
+.cert-list{display:grid;gap:10px;margin:0;padding:0;list-style:none}
+.cert-list li{display:grid;grid-template-columns:4.2em minmax(0,1fr);gap:12px;align-items:baseline}
+.cert-list .ct{justify-self:start}
+
+/* the course card stacks, so it holds its own next to the three certifications */
+.strip{grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);margin-top:clamp(24px, 2.4vw, 44px)}
+.course{display:grid;grid-template-columns:auto minmax(0,1fr);align-content:center;align-items:center;gap:6px 10px}
+.course > span{grid-column:1 / -1}
+.course strong{font-size:var(--fs-h3)}
+
+/* the accessibility button on every screen, the phone included: where the margin is narrower than the button it is a tab
+   inside the margin, so it never rides over running text. It steps aside while the menu is open */
+@media (max-width:1180px){
+  .fab{display:grid;inset-inline-end:0;width:24px;height:48px;border-inline-end:0;box-shadow:none}
+  .fab .ic{width:20px;height:20px}
+}
+.menu-open .fab{display:none}
+
+/* a link to a page that isn't built yet: one short line instead of an error page. Goes when the pages exist */
+.sketch-note{position:fixed;z-index:95;inset-inline:var(--gutter);bottom:24px;width:fit-content;margin-inline:auto;padding:12px 18px;border:2px solid var(--orange);
+  background:var(--ink);color:#F3F6FA;font-size:var(--fs-ui);line-height:1.4;opacity:0;visibility:hidden;transition:opacity .2s var(--ease),visibility 0s linear .2s}
+.sketch-note.on{opacity:1;visibility:visible;transition-delay:0s}
+@media (max-width:1023px){.sketch-note{bottom:76px}}
+
+@media (max-width:1023px){.strip{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:640px){
+  /* the whole photo: the narrower crop cut his head off */
+  .print img{aspect-ratio:5 / 4;object-position:100% 0}
+  .hero .ctas,.bonus-act .btn{align-self:stretch}
+  /* a narrower colour band and no corner mark, so the link on the service card stays on one line */
+  .mcard{grid-template-columns:76px minmax(0,1fr)}
+  .pip{display:none}
+  .mcard .go{padding-inline-end:0}
+}
+@media (max-width:640px) and (max-height:760px){
+  .print img{aspect-ratio:2 / 1}
+}

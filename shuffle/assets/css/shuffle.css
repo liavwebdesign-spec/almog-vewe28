@@ -1,0 +1,151 @@
+/* אימון יוצר · "הטריפה" (3.11): הסלוגן קורה על המסך. חפיסה בפתיחה שהגולשת טורפת בעצמה, וקלף ענק לכל מהלך שמסתובב כשעוברים לידו.
+   אובייקט אחד גדול לכל מסך, על לבן, מט ושקט. CSS תלת-ממדי בלי ספריות, בלי הצמדה בגלילה.
+   נטען אחרי light.css. בלי סקריפט ובתנועה מופחתת הכל במצב הסופי. */
+
+:root{--paper-edge:#D3DCE7;--deck-w:clamp(236px, min(28vw, 52svh), 520px)}
+
+/* ---------- the card: matte, a colour field to the edge, a big mark from the logo cropped by it ---------- */
+.face{position:absolute;inset:0;overflow:hidden;border-radius:calc(var(--W) * .065);background:var(--c);color:var(--ink);
+  box-shadow:0 0 0 1px rgba(20,61,107,.14)}
+.face .sy{position:absolute;top:-9%;inset-inline-end:-16%;width:96%;aspect-ratio:1;fill:var(--ink)}
+.face .sy.dot{top:7%;inset-inline-end:-10%;width:56%}
+.face b{position:absolute;z-index:1;inset-inline:8%;bottom:6%;font-size:calc(var(--W) * .096);font-weight:700;line-height:1.08;letter-spacing:-.02em}
+
+/* Almog is the face card of his own deck */
+.face.me{--c:#EDF1F6}
+.me-disk{position:absolute;inset-inline:9%;top:29%;aspect-ratio:1;border-radius:50%;background:var(--orange)}
+.me img{position:absolute;bottom:0;inset-inline:0;width:100%;height:80%;object-fit:contain;object-position:50% 100%;user-select:none;pointer-events:none}
+.me b{inset-inline:8%;top:5.5%;bottom:auto;font-size:calc(var(--W) * .092)}
+
+/* ---------- 1. the opening: the headline, and the deck that you shuffle yourself ---------- */
+.hero{grid-template-columns:minmax(0,1.14fr) minmax(0,.86fr);min-height:min(100svh, 900px);padding-bottom:clamp(28px, 3vw, 48px)}
+.hero h1{font-size:calc(clamp(44px, 5.5vw, 124px) * var(--a11y-scale));line-height:1.05;letter-spacing:-.035em;max-width:none}
+.hero h1 mark{white-space:nowrap}
+.hero .lead{max-width:36ch}
+.hero-vis{z-index:2;display:flex;flex-direction:column;align-items:center;gap:clamp(18px, 2vw, 32px);padding:0;--W:var(--deck-w)}
+.scene{position:relative;width:var(--W);height:calc(var(--W) * 1.4);perspective:calc(var(--W) * 3.6)}
+.deck{position:absolute;inset:0;transform-style:preserve-3d;cursor:grab;touch-action:pan-y;user-select:none;-webkit-user-select:none;
+  transform:rotateX(calc(13deg + var(--ty, 0) * -7deg)) rotateY(calc(-17deg + var(--tx, 0) * 10deg)) rotateZ(4deg)}
+.deck.held{cursor:grabbing}
+.dc{position:absolute;inset:0;transform:translateZ(calc((12 - var(--p)) * 4px));will-change:transform}
+.dc .face{backface-visibility:hidden}
+/* the shadow it throws on the white page */
+.deck-sh{position:absolute;inset-inline:6%;bottom:-5%;height:16%;border-radius:50%;background:radial-gradient(closest-side,rgba(20,61,107,.34),rgba(20,61,107,0));transform:translateX(calc(var(--spl, 0) * -8%)) scaleX(calc(1 + var(--spl, 0) * .55));pointer-events:none}
+.shuffle{display:none;align-items:center;gap:10px;min-height:48px;padding:0 6px;border:0;background:none;color:var(--ink);font:inherit;font-size:var(--fs-ui);font-weight:500;cursor:pointer;
+  text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:.35em;text-decoration-color:var(--orange)}
+.shuffle .ic{transition:transform .5s var(--ease)}
+.deck-on .shuffle{display:inline-flex}
+@media (hover:hover) and (pointer:fine){.shuffle:hover .ic{transform:rotate(-180deg)}}
+.anim .scene{animation:deck-in 1s var(--ease) backwards}
+@keyframes deck-in{from{opacity:0;transform:translateY(36px)}}
+
+/* ---------- the big two-sided card: it turns as you pass it, and rests facing you ---------- */
+.stage{position:relative;z-index:1;--W:clamp(250px, min(29vw, 58svh), 540px);width:var(--W);aspect-ratio:5 / 7;perspective:calc(var(--W) * 3.2)}
+.stage::after{content:"";position:absolute;z-index:-1;inset-inline:8%;bottom:-6%;height:12%;border-radius:50%;background:radial-gradient(closest-side,rgba(20,61,107,.3),rgba(20,61,107,0));transform:scaleX(var(--cs, 1));pointer-events:none}
+.gc{--th:calc(var(--W) * .018);position:absolute;inset:0;transform-style:preserve-3d;will-change:transform;
+  transform:translateY(var(--up, 0px)) rotateX(var(--hy, 0deg)) rotateY(var(--ry, -9deg)) rotateZ(var(--rz, 0deg))}
+.gc-f{transform:translateZ(calc(var(--th) / 2));backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.gc-b{position:absolute;inset:0;overflow:hidden;border-radius:calc(var(--W) * .065);background:var(--ink);box-shadow:0 0 0 1px rgba(20,61,107,.16);
+  transform:rotateY(180deg) translateZ(calc(var(--th) / 2));backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.gc-b .br,.gc-b .bp{position:absolute;aspect-ratio:1}
+.gc-b .br{inset-inline:14%;top:50%;translate:0 -50%;fill:#F3F6FA}
+.gc-b .bp{inset-inline:38%;top:50%;translate:0 -50%;fill:var(--orange)}
+/* the thickness of the stock, seen when the card stands edge-on */
+.gc-e{position:absolute;top:calc(var(--W) * .065);bottom:calc(var(--W) * .065);width:var(--th);background:var(--paper-edge)}
+.gc-e:nth-of-type(1){inset-inline-start:calc(var(--th) / -2);transform:rotateY(90deg)}
+.gc-e:nth-of-type(2){inset-inline-end:calc(var(--th) / -2);transform:rotateY(90deg)}
+
+/* ---------- 2. the moves: a gallery. Each move has its own room with walls in its colour, one object in it, the words beside it like a label ---------- */
+.moves{padding:0}
+.expo{display:grid;gap:0}
+.ex{display:grid;grid-template-columns:minmax(0,.86fr) minmax(0,1.14fr);align-items:center;gap:clamp(28px, 4.5vw, 104px);padding:clamp(36px, 3.8vw, 72px) var(--gutter);
+  background:#F3F5F8;background:color-mix(in srgb, var(--c) 26%, #fff)}
+.ex .stage{justify-self:center}
+.ex:nth-child(even){grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr)}
+.ex:nth-child(even) .stage{order:2}
+.cap{display:flex;flex-direction:column;align-items:flex-start;gap:clamp(14px, 1.3vw, 24px)}
+.cap h3{font-size:calc(clamp(44px, 5.4vw, 124px) * var(--a11y-scale));font-weight:700;line-height:1.04;letter-spacing:-.035em}
+.cap p{max-width:26ch;font-size:calc(clamp(21px, 1.9vw, 38px) * var(--a11y-scale));line-height:1.35;color:var(--ink)}
+.cap .go{font-size:var(--fs-ui)}
+:is(.s-vip,.s-method) .cap .go{text-decoration-color:var(--ink)}
+.moves-foot{margin:clamp(24px, 2.6vw, 44px) var(--gutter) 0}
+
+/* ---------- 3. the guide: the blue card from the deck, a large orange card breaking out of it ---------- */
+.bonus-card{rotate:0deg;overflow:visible;gap:clamp(24px, 4vw, 80px)}
+.b-stage{--W:clamp(130px, 14vw, 250px);margin-block:calc(var(--W) * -.34);z-index:1}
+.b-stage::after{content:none}
+.b-face{--c:var(--orange);display:grid;place-items:center}
+.b-face .ic{width:42%;height:auto;aspect-ratio:1}
+.bonus{padding-top:clamp(36px, 4vw, 72px);padding-bottom:0}
+
+/* ---------- 4. about: his photo printed on a wide card ---------- */
+.about-ph{margin:0;justify-self:center;width:100%}
+.about-ph::before{content:none}
+.stage.wide{--W:clamp(290px, 42vw, 860px);width:min(100%, var(--W));aspect-ratio:7 / 5;margin-inline:auto}
+.face.ph{--c:#fff;border:calc(var(--W) * .018) solid #fff}
+.face.ph img{width:100%;height:100%;aspect-ratio:auto;object-fit:cover;object-position:50% 30%;scale:none}
+.rv-on .about-ph img{animation:none}
+@supports (animation-timeline:view()){.about-ph img{scale:none}.rv-on .about-ph.in img{animation:none}}
+
+/* ---------- 5. the steps: three small cards turning over one after the other ---------- */
+.step-row{gap:clamp(20px, 3vw, 56px)}
+.step{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;gap:clamp(14px, 1.4vw, 24px);padding-top:0}
+.step::before,.step::after{content:none}
+.stage.mini{--W:clamp(84px, 7.6vw, 136px)}
+.stage.mini::after{content:none}
+.face.st{--c:var(--orange);display:grid;place-items:center}
+.step .sn{font-family:var(--font);font-size:calc(var(--W) * .52);font-weight:700;line-height:1;color:var(--ink)}
+.rv-on .step.in .sn{animation:none}
+.step-txt{display:flex;flex-direction:column;gap:6px}
+
+/* ---------- 9. the closing: the hand you are left holding ---------- */
+.closing{position:relative;overflow:clip;grid-template-columns:minmax(0,1.3fr) minmax(0,.7fr);grid-template-areas:"h hand" "a hand";align-items:start;row-gap:clamp(24px, 2.6vw, 48px)}
+.closing h2{grid-area:h}
+.closing-act{grid-area:a}
+.hand{grid-area:hand;position:relative;align-self:end;justify-self:center;--W:clamp(150px, 14.5vw, 280px);--f:1;width:var(--W);height:calc(var(--W) * 1.12);margin-bottom:calc(var(--W) * -.26 - clamp(40px, 4vw, 72px))}
+.hc{position:absolute;inset:0 0 auto;height:calc(var(--W) * 1.4);transform-origin:50% 118%;transform:rotate(calc(var(--s) * var(--f) * 15deg))}
+.hc .face{box-shadow:0 0 0 1px rgba(255,255,255,.22),0 12px 30px -10px rgba(3,10,19,.6)}
+
+/* ---------- accessibility modes ---------- */
+html.a11y-contrast :is(.face:not(.ph),.gc-b){background:#000 !important;color:#fff !important;border-color:#fff}
+html.a11y-contrast :is(.face .sy,.gc-b .br,.gc-b .bp){fill:#fff}
+html.a11y-contrast .me-disk{display:none}
+html.a11y-contrast .ex{background:transparent}
+html.a11y-contrast :is(.deck-sh,.stage::after){display:none}
+html.a11y-contrast .shuffle{color:#ffe14d !important}
+html.a11y-still .scene{animation:none}
+
+/* ---------- tablet and phone ---------- */
+@media (max-width:1023px){
+  .hero{grid-template-columns:minmax(0,1fr);min-height:0;gap:20px;justify-items:start}
+  /* the deck sits between the headline and the words after it, the reading order stays as it is */
+  .hero-txt{display:contents}
+  .hero-txt > .kicker{order:1}
+  .hero-txt > h1{order:2}
+  .hero-vis{order:3;justify-self:center;margin-top:clamp(8px, 2vw, 20px);--W:clamp(190px, min(40vw, 32svh), 300px)}
+  .hero-txt > .lead{order:4}
+  .hero-txt > .ctas{order:5}
+  .hero h1{font-size:calc(clamp(44px, 8vw, 76px) * var(--a11y-scale))}
+  .ex{grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr)}
+  .ex:nth-child(even){grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+  .stage{--W:clamp(210px, 32vw, 320px)}
+  .cap h3{font-size:calc(clamp(38px, 6vw, 60px) * var(--a11y-scale))}
+  .b-stage{--W:clamp(110px, 18vw, 170px);margin-block:calc(var(--W) * -.5) 0}
+  .stage.wide{--W:min(100%, 640px);width:100%;max-width:640px}
+  .stage.wide{--W:clamp(290px, 86vw, 640px)}
+  .step-row{grid-template-columns:minmax(0,1fr)}
+  .closing{grid-template-columns:minmax(0,1fr);grid-template-areas:"h" "a" "hand"}
+  .hand{--W:clamp(150px, 34vw, 220px);margin-top:12px}
+}
+@media (max-width:640px){
+  .hero h1{font-size:calc(clamp(36px, 10.6vw, 50px) * var(--a11y-scale));line-height:1.06}
+  /* phone: the card above its words, a single column that reads straight down */
+  .ex,.ex:nth-child(even){grid-template-columns:minmax(0,1fr);gap:clamp(20px, 6vw, 32px);padding-block:clamp(32px, 9vw, 48px)}
+  .ex:nth-child(even) .stage{order:0}
+  .stage{--W:clamp(200px, 58vw, 290px)}
+  .cap h3{font-size:calc(clamp(36px, 10.6vw, 50px) * var(--a11y-scale))}
+  .cap p{font-size:var(--fs-lead);max-width:none}
+  .b-stage{--W:112px;margin-block:calc(var(--W) * -.6) 0;justify-self:start}
+  .bonus{padding-top:72px}
+  .stage.mini{--W:76px}
+}
