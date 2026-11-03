@@ -34,7 +34,7 @@
 .shuffle{display:none;align-items:center;gap:10px;min-height:48px;padding:0 6px;border:0;background:none;color:var(--ink);font:inherit;font-size:var(--fs-ui);font-weight:500;cursor:pointer;
   text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:.35em;text-decoration-color:var(--orange)}
 .shuffle .ic{transition:transform .5s var(--ease)}
-.deck-on .shuffle{display:inline-flex}
+.deck-on .shuffle{display:inline-flex;position:relative;z-index:1}
 @media (hover:hover) and (pointer:fine){.shuffle:hover .ic{transform:rotate(-180deg)}}
 .anim .scene{animation:deck-in 1s var(--ease) backwards}
 @keyframes deck-in{from{opacity:0;transform:translateY(36px)}}
@@ -68,7 +68,7 @@
 .cap p{max-width:26ch;font-size:calc(clamp(21px, 1.9vw, 38px) * var(--a11y-scale));line-height:1.35;color:var(--ink)}
 .cap .go{font-size:var(--fs-ui)}
 :is(.s-vip,.s-method) .cap .go{text-decoration-color:var(--ink)}
-.moves-foot{margin:clamp(24px, 2.6vw, 40px) var(--gutter) 0}
+.moves-foot{margin:clamp(32px, 2.8vw, 48px) var(--gutter) 0}
 .moves-foot,.direct,.about p{max-width:58ch}
 
 /* ---------- 3. the guide: the blue card from the deck, a large orange card breaking out of it ---------- */
@@ -108,6 +108,8 @@
 .hc .face{box-shadow:0 0 0 2px var(--ink)}
 /* the band the hand rises from behind: a surface, not a line */
 .ft-bar{border-top:0;background:rgba(255,255,255,.06)}
+.ft-fine{align-items:center}
+.strip{gap:clamp(24px, 2.4vw, 44px)}
 
 /* ---------- accessibility modes ---------- */
 html.a11y-contrast :is(.face:not(.ph),.gc-b){background:#000 !important;color:#fff !important;border-color:#fff}
@@ -120,12 +122,12 @@ html.a11y-still .scene{animation:none}
 
 /* ---------- tablet and phone ---------- */
 @media (max-width:1023px){
-  .hero{grid-template-columns:minmax(0,1fr);min-height:0;gap:20px;justify-items:start}
+  .hero{grid-template-columns:minmax(0,1fr);min-height:0;gap:20px;justify-items:start;padding-bottom:var(--sec)}
   /* the deck sits between the headline and the words after it, the reading order stays as it is */
   .hero-txt{display:contents}
   .hero-txt > .kicker{order:1}
   .hero-txt > h1{order:2}
-  .hero-vis{order:3;justify-self:center;margin-top:clamp(8px, 2vw, 20px);--W:clamp(190px, min(40vw, 32svh), 300px)}
+  .hero-vis{order:3;justify-self:center;margin-top:clamp(8px, 2vw, 20px);--W:clamp(190px, min(36vw, 28svh), 300px)}
   .hero-txt > .lead{order:4}
   .hero-txt > .ctas{order:5}
   .hero h1{font-size:calc(clamp(44px, 8vw, 76px) * var(--a11y-scale))}
@@ -134,8 +136,8 @@ html.a11y-still .scene{animation:none}
   .stage{--W:clamp(210px, 32vw, 320px)}
   .cap h3{font-size:calc(clamp(38px, 6vw, 60px) * var(--a11y-scale))}
   .b-stage{--W:clamp(110px, 18vw, 170px);margin-block:calc(var(--W) * -.5) 0}
-  .stage.wide{--W:min(100%, 640px);width:100%;max-width:640px}
-  .stage.wide{--W:clamp(290px, 86vw, 640px)}
+  .bonus{padding-top:72px}
+  .stage.wide{--W:clamp(290px, 86vw, 640px);width:100%;max-width:640px}
   .step-row{grid-template-columns:minmax(0,1fr)}
   .closing{grid-template-columns:minmax(0,1fr);grid-template-areas:"h" "a" "hand"}
   .hand{--W:clamp(150px, 34vw, 220px);margin-top:12px}
@@ -144,7 +146,8 @@ html.a11y-still .scene{animation:none}
   .hero{gap:12px;padding-bottom:8px}
   .hero h1{font-size:calc(clamp(36px, 10.6vw, 50px) * var(--a11y-scale));line-height:1.06}
   /* the shuffle button beside the deck, so the two actions stay on the first screen */
-  .hero-vis{flex-direction:row;justify-content:center;width:100%;gap:12px;margin-top:12px;--W:clamp(136px, 30svh - 70px, 230px)}
+  .hero-vis{flex-direction:row;justify-content:center;width:100%;gap:12px;margin-block:20px 10px;--W:clamp(128px, 30svh - 82px, 230px)}
+  .hero-txt > .ctas{justify-self:stretch}
   .shuffle{flex-shrink:0}
   /* phone: the card above its words, a single column that reads straight down */
   .ex,.ex:nth-child(even){grid-template-columns:minmax(0,1fr);gap:clamp(20px, 6vw, 32px);padding-block:clamp(32px, 9vw, 48px)}
