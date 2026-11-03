@@ -40,7 +40,7 @@
 @keyframes deck-in{from{opacity:0;transform:translateY(36px)}}
 
 /* ---------- the big two-sided card: it turns as you pass it, and rests facing you ---------- */
-.stage{position:relative;z-index:1;--W:clamp(250px, min(29vw, 58svh), 540px);width:var(--W);aspect-ratio:5 / 7;perspective:calc(var(--W) * 3.2)}
+.stage{position:relative;z-index:1;--W:clamp(220px, min(24vw, 50svh), 460px);width:var(--W);aspect-ratio:5 / 7;perspective:calc(var(--W) * 3.2)}
 .stage::after{content:"";position:absolute;z-index:-1;inset-inline:8%;bottom:-6%;height:12%;border-radius:50%;background:radial-gradient(closest-side,rgba(20,61,107,.3),rgba(20,61,107,0));transform:scaleX(var(--cs, 1));pointer-events:none}
 .gc{--th:calc(var(--W) * .018);position:absolute;inset:0;transform-style:preserve-3d;will-change:transform;
   transform:translateY(var(--up, 0px)) rotateX(var(--hy, 0deg)) rotateY(var(--ry, -9deg)) rotateZ(var(--rz, 0deg))}
@@ -58,7 +58,7 @@
 /* ---------- 2. the moves: a gallery. Each move has its own room with walls in its colour, one object in it, the words beside it like a label ---------- */
 .moves{padding:0}
 .expo{display:grid;gap:0}
-.ex{display:grid;grid-template-columns:minmax(0,.86fr) minmax(0,1.14fr);align-items:center;gap:clamp(28px, 4.5vw, 96px);padding:clamp(40px, 3.8vw, 72px) var(--gutter);
+.ex{display:grid;grid-template-columns:minmax(0,.86fr) minmax(0,1.14fr);align-items:center;gap:clamp(28px, 4.5vw, 96px);padding:clamp(32px, 2.6vw, 48px) var(--gutter);
   background:#F3F5F8;background:color-mix(in srgb, var(--c) 26%, #fff)}
 .ex .stage{justify-self:center}
 .ex:nth-child(even){grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr)}
