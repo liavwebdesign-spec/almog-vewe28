@@ -138,5 +138,9 @@
     deal.addEventListener("pointerleave", function () { pointer = null; nudge(-1); kick(); });
   }
 
+  /* the phone menu is a sheet over a soft dim now: a tap on the dim closes it */
+  var md = document.getElementById("md"), burger = document.querySelector(".burger");
+  if (md && burger) md.addEventListener("click", function (e) { if (e.target === md) burger.click(); });
+
   jump();
 })();

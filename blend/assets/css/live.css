@@ -186,6 +186,60 @@ html:not(.anim) .step h3,html.a11y-still .step h3{color:var(--fg)}
   .step{position:relative;gap:6px 14px}
   .step p{margin-inline-start:calc(var(--sn) * 1.5 + 14px)}
 }
+/* ---------- 7. the header and menu wherever the burger shows (Liav, 4.11: "יותר FINE ומהודק", a soft entrance).
+   A thin header, two hairlines for a burger, and a sheet that unrolls from under the header over a soft dim, with the rows settling in one after another.
+   site.js only toggles [hidden], so the opening and the closing are carried by the transitions here.
+   With motion off everything simply appears ---------- */
+@media (max-width:1023px){
+  html{scroll-padding-top:88px}
+  .hd,.hd.solid{height:76px}
+  .hd.solid{box-shadow:0 1px 0 var(--fg-line)}
+  .hlogo img{width:64px}
+  .hero{padding-top:96px}
+
+  .burger{position:relative;width:44px;height:44px;padding:0;border:0;background:none;display:block;margin-inline-end:-9px}
+  .burger i{position:absolute;top:50%;left:9px;width:26px;height:1.5px;margin-top:-.75px;border-radius:2px;transform:translateY(var(--b));transition:transform .45s var(--ease)} /* qa-allow: physical, drawn inside the button */
+  .burger i:nth-child(1){--b:-4px}
+  .burger i:nth-child(2){display:none}
+  .burger i:nth-child(3){--b:4px}
+  .burger[aria-expanded="true"] i:nth-child(1){transform:rotate(45deg)}
+  .burger[aria-expanded="true"] i:nth-child(3){transform:rotate(-45deg)}
+
+  .menu-open .hd,.menu-open .hd.solid{background-color:transparent;box-shadow:none}
+  .md{padding:0;background:rgba(10,26,46,.36);overscroll-behavior:contain}
+  .md-panel{--bend:clamp(18px, 3vw, 24px);gap:0;padding:84px var(--gutter) 24px;background:var(--ground);border-radius:0 0 var(--bend) var(--bend);box-shadow:0 24px 48px -24px rgba(10,26,46,.4)}
+  .md-list li{border-bottom:1px solid var(--fg-line)}
+  .md-list a{min-height:52px;font-size:calc(20px * var(--a11y-scale));font-weight:500}
+  .md-moves{gap:4px 14px;padding-block:14px}
+  .md-moves a{flex-direction:row;justify-content:flex-start;align-items:center;gap:10px;min-height:44px;padding:0;border-radius:0;background:none;color:var(--fg);font-size:calc(15px * var(--a11y-scale))}
+  .md-moves .sym{flex:none;display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--c)}
+  .md-moves .sym svg{width:58%}
+  .md .btn{min-height:50px;box-shadow:none}
+  html.a11y-contrast .md-moves .sym{background:none;box-shadow:inset 0 0 0 1px #fff}
+  html.a11y-contrast .md-moves .sym svg{fill:#fff}
+
+  /* opening: the dim fades up, the sheet unrolls, the rows settle one after another */
+  .anim .md{transition:background-color .5s var(--ease),display .5s allow-discrete}
+  .anim .md-panel{clip-path:inset(0 0 0 0 round 0 0 var(--bend) var(--bend));transition:clip-path .6s cubic-bezier(.22,.8,.2,1)}
+  .anim .md :is(.md-list li,.md-moves a,.btn){transition:opacity .5s var(--ease) var(--w, 0s),translate .55s var(--ease) var(--w, 0s),transform .2s var(--ease)}
+  .md-list li:nth-child(1){--w:.1s}
+  .md-list li:nth-child(2){--w:.14s}
+  .md-list li:nth-child(3){--w:.18s}
+  .md-list li:nth-child(4){--w:.22s}
+  .md-moves a:nth-child(1),.md-moves a:nth-child(2){--w:.27s}
+  .md-moves a:nth-child(3),.md-moves a:nth-child(4){--w:.31s}
+  .md .btn{--w:.36s}
+  @starting-style{
+    .anim .md{background-color:rgba(10,26,46,0)}
+    .anim .md-panel{clip-path:inset(0 0 100% 0 round 0 0 var(--bend) var(--bend))}
+    .anim .md :is(.md-list li,.md-moves a,.btn){opacity:0;translate:0 -10px}
+  }
+  /* closing: the same way back, quicker and all together */
+  .anim .md[hidden]{background-color:rgba(10,26,46,0);transition-duration:.34s}
+  .anim .md[hidden] .md-panel{clip-path:inset(0 0 100% 0 round 0 0 var(--bend) var(--bend));transition:clip-path .34s var(--ease)}
+  .anim .md[hidden] :is(.md-list li,.md-moves a,.btn){opacity:0;translate:0 -6px;transition:opacity .16s var(--ease),translate .16s var(--ease)}
+  html.a11y-still .md :is(.md-list li,.md-moves a,.btn){--w:0s}
+}
 /* a little more air between the parts above the phone (Liav, 4.11: "עוד ריווחון קטן"), without going back to a loose page */
 @media (min-width:768px){
   :root{--sec:clamp(64px, 7.2vw, 132px)}
