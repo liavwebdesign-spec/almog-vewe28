@@ -67,13 +67,9 @@ html.a11y-contrast .moves{background:#000}
     translate:calc((1 - var(--q, 1)) * var(--sg) * 26px) calc((1 - var(--q, 1)) * 30px)}
 }
 
-/* ---------- 3. the steps: a route along the top, the plane from the logo flies it, each step lights up on arrival ---------- */
+/* ---------- 3. the steps: the logo's ring, the plane flies it with the scroll, each step lights up on arrival ---------- */
 .steps{--r:1;--sn:calc(clamp(26px, 1.7vw + .4rem, 44px) * var(--a11y-scale))}
 .step::before,.step::after{content:none}
-.route{position:relative;display:block;height:2px;margin-bottom:clamp(24px, 2vw, 32px);background:var(--fg-line)}
-.route i{position:absolute;inset:0;background:var(--orange);transform-origin:100% 50%;transform:scaleX(var(--r))}
-.route b{position:absolute;inset:0;transform:translateX(calc(var(--r) * -100%))}
-.route svg{position:absolute;top:-14px;inset-inline-start:-14px;width:30px;height:30px;fill:var(--orange);rotate:-43deg}
 .step{padding-top:0}
 .step .sn{display:grid;place-items:center;width:1.5em;height:1.5em;border-radius:50%;font-size:var(--sn);background:var(--paper-2);color:var(--fg-mute);transform-origin:50% 50%;
   transition:background .35s var(--ease),color .35s var(--ease),transform .45s var(--ease)}
@@ -86,12 +82,49 @@ html.a11y-contrast .moves{background:#000}
 html:not(.anim) .step .sn,html.a11y-still .step .sn{background:var(--orange);color:var(--ink)}
 html:not(.anim) .step h3,html.a11y-still .step h3{color:var(--fg)}
 
-/* the round process (behaviour of MV:g22, 4.11): on the desktop the three steps sit around the logo's ring and the plane flies it.
-   No pin, and all three texts stay on screen, because a pinned scroll is what Almog called stuttering. Below 1024 the straight route stays */
-.loop{display:none}
+/* the round process (behaviour of MV:g22, 4.11): the plane flies the logo's ring and the centre shows the step it reached.
+   No pin, and all three texts stay on screen, because a pinned scroll is what Almog called stuttering */
+.loop{display:block;position:relative;width:var(--d);height:var(--d)}
+.loop-ring{position:absolute;inset:0;width:100%;height:100%;overflow:visible;rotate:-90deg}
+.loop-ring circle{fill:none}
+.loop-ring .tr{stroke:var(--fg-line);stroke-width:.45}
+.loop-ring .dr{stroke:var(--orange);stroke-width:.7;stroke-dasharray:1;stroke-dashoffset:calc(1 - var(--r))}
+.loop-ring .st circle{fill:#fff;stroke:var(--fg-line);stroke-width:.6;transition:fill .35s var(--ease),stroke .35s var(--ease)}
+.loop-ring .st circle.on{fill:var(--orange);stroke:var(--orange)}
+.loop u{position:absolute;inset:24%;display:grid;place-items:center;border-radius:50%;background:var(--ink);color:#fff;scale:calc(.3 + var(--r) * .7);text-decoration:none;font-weight:700;font-size:calc(var(--d) * .2);line-height:1}
+.loop u i{grid-area:1 / 1;font-style:normal;opacity:0;transition:opacity .3s var(--ease)}
+.loop u i.now{opacity:1}
+.loop u svg{grid-area:1 / 1;width:44%;height:44%;fill:var(--orange);opacity:0}
+html:not(.anim) .loop u i,html.a11y-still .loop u i{opacity:0}
+html:not(.anim) .loop u svg,html.a11y-still .loop u svg{opacity:1}
+.loop b{position:absolute;inset:0;rotate:calc(var(--r) * 360deg)}
+.loop b svg{position:absolute;top:0;left:50%;width:34px;height:34px;fill:var(--orange);translate:-50% -50%;rotate:137deg} /* qa-allow: physical, sits on the circle */
+.anim .loop :is(u,b){will-change:scale,rotate}
+
+/* below the desktop (Liav, 4.11: "פרווה"): the same ring on top, the steps under it as rounded boxes, and the box of the step the plane reached turns blue like the centre */
+@media (max-width:1023px){
+  .steps{--d:clamp(230px, 40vw, 300px)}
+  .loop{margin:0 auto clamp(32px, 5vw, 44px)}
+  .step{padding:clamp(16px, 2.4vw, 22px);gap:6px;border-radius:var(--r);background:var(--paper-2);transition:background .4s var(--ease)}
+  .step .sn{background:#fff}
+  .step.lit .sn{background:var(--orange)}
+  .step p{margin-top:0}
+  .step.now{background:var(--ink)}
+  .step.now h3{color:#fff}
+  .step.now p{color:rgba(243,246,250,.86)}
+  html.a11y-contrast .step{background:none !important;box-shadow:inset 0 0 0 1px #fff}
+}
+@media (max-width:640px){
+  .steps{--d:clamp(210px, 62vw, 260px)}
+  .step-row{gap:10px}
+  .step{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;gap:2px 14px;padding:14px 16px}
+  .step .sn{grid-row:1 / span 2;margin:0}
+  .step h3{flex:none}
+  .step p{flex-basis:auto;max-width:none}
+}
 @media (min-width:1024px){
   .steps{--d:clamp(340px, 31vw, 540px);position:relative}
-  .route{display:none}
+  .loop-ring .st{display:none}
   .step-row{grid-template-columns:minmax(0,1fr) var(--d) minmax(0,1fr);grid-template-rows:var(--d) auto;gap:0 clamp(44px, 4.4vw, 80px)}
   .step{position:static;gap:8px}
   .step p{text-wrap:balance}
@@ -102,21 +135,8 @@ html:not(.anim) .step h3,html.a11y-still .step h3{color:var(--fg)}
   .step:nth-child(1) .sn{top:calc(var(--sec) + var(--d) / 2);left:calc(50% + var(--d) / 2)} /* qa-allow: physical, a point on the circle */
   .step:nth-child(2) .sn{top:calc(var(--sec) + var(--d));left:50%} /* qa-allow: physical, a point on the circle */
   .step:nth-child(3) .sn{top:calc(var(--sec) + var(--d) / 2);left:calc(50% - var(--d) / 2)} /* qa-allow: physical, a point on the circle */
-  .loop{display:block;position:absolute;top:var(--sec);left:50%;width:var(--d);height:var(--d);translate:-50% 0} /* qa-allow: physical, centred with translate */
-  .loop-ring{position:absolute;inset:0;width:100%;height:100%;overflow:visible;rotate:-90deg}
-  .loop-ring circle{fill:none}
-  .loop-ring .tr{stroke:var(--fg-line);stroke-width:.45}
-  .loop-ring .dr{stroke:var(--orange);stroke-width:.7;stroke-dasharray:1;stroke-dashoffset:calc(1 - var(--r))}
+  .loop{position:absolute;top:var(--sec);left:50%;translate:-50% 0} /* qa-allow: physical, centred with translate */
   .step:nth-child(1){align-items:flex-end;text-align:end}
-  .loop u{position:absolute;inset:24%;display:grid;place-items:center;border-radius:50%;background:var(--ink);color:#fff;scale:calc(.3 + var(--r) * .7);text-decoration:none;font-weight:700;font-size:calc(var(--d) * .2);line-height:1}
-  .loop u i{grid-area:1 / 1;font-style:normal;opacity:0;transition:opacity .3s var(--ease)}
-  .loop u i.now{opacity:1}
-  .loop u svg{grid-area:1 / 1;width:44%;height:44%;fill:var(--orange);opacity:0}
-  html:not(.anim) .loop u i,html.a11y-still .loop u i{opacity:0}
-  html:not(.anim) .loop u svg,html.a11y-still .loop u svg{opacity:1}
-  .loop b{position:absolute;inset:0;rotate:calc(var(--r) * 360deg)}
-  .loop b svg{position:absolute;top:0;left:50%;width:34px;height:34px;fill:var(--orange);translate:-50% -50%;rotate:137deg} /* qa-allow: physical, sits on the circle */
-  .anim .loop :is(u,b){will-change:scale,rotate}
 }
 
 /* ---------- 4. the testimonials (Almog, 3.11: "ברגע שהגעתי לסקשן הזה הן יזוזו"): a closed stack in the middle deals out to its three places on arrival, once.
@@ -177,14 +197,6 @@ html:not(.anim) .step h3,html.a11y-still .step h3{color:var(--fg)}
 @media (max-width:640px){
   .hero h1{font-size:calc(clamp(38px, 11vw, 52px) * var(--a11y-scale));line-height:1.06}
   .hero-vis{height:clamp(320px, 92vw, 400px)}
-  /* the route runs down the side, the plane flies down it */
-  .steps{position:relative}
-  .route{position:absolute;top:var(--sec);bottom:var(--sec);inset-inline-start:calc(var(--gutter) + var(--sn) * .75 - 1px);width:2px;height:auto;margin:0}
-  .route i{transform-origin:50% 0;transform:scaleY(var(--r))}
-  .route b{transform:translateY(calc(var(--r) * 100%))}
-  .route svg{rotate:-135deg}
-  .step{position:relative;gap:6px 14px}
-  .step p{margin-inline-start:calc(var(--sn) * 1.5 + 14px)}
 }
 /* ---------- 7. the header and menu wherever the burger shows (Liav, 4.11: "יותר FINE ומהודק", a soft entrance).
    A thin header, two hairlines for a burger, and a sheet that unrolls from under the header over a soft dim, with the rows settling in one after another.
