@@ -7,6 +7,13 @@
 .hero-txt{align-self:center;padding-bottom:var(--sec)}
 .hero h1{font-size:calc(clamp(44px, 5.5vw, 124px) * var(--a11y-scale));line-height:1.05;letter-spacing:-.035em;max-width:none}
 .hero h1 mark{white-space:nowrap}
+/* the marking in the headings (Liav, 4.11: less AI than the underline): a light line and a bold line, with an orange full stop.
+   Keeps Almog's reasons from 1.11: nothing behind the word, and easy to repeat in his materials */
+:is(.hero h1,.about h2,.closing h2){font-weight:400}
+mark,.rv-on .rv:not(.in) mark,.rv-on .rv.in mark{text-decoration:none;animation:none;font-weight:700}
+:is(.about h2,.closing h2) mark{display:block;text-wrap:balance}
+mark i{font-style:normal;color:var(--orange);transition:color .5s var(--ease) .45s}
+.rv-on .rv:not(.in) mark i{color:inherit}
 .hero .lead{max-width:36ch}
 .hero-vis{position:relative;padding:0;min-width:0}
 .disk,.orbit,.fig{position:absolute}
@@ -80,6 +87,39 @@ html.a11y-contrast .moves{background:#000}
 html:not(.anim) .step .sn,html.a11y-still .step .sn{background:var(--orange);color:var(--ink)}
 html:not(.anim) .step h3,html.a11y-still .step h3{color:var(--fg)}
 
+/* the round process (behaviour of MV:g22, 4.11): on the desktop the three steps sit around the logo's ring and the plane flies it.
+   No pin, and all three texts stay on screen, because a pinned scroll is what Almog called stuttering. Below 1024 the straight route stays */
+.loop{display:none}
+@media (min-width:1024px){
+  .steps{--d:clamp(340px, 31vw, 540px);position:relative}
+  .route{display:none}
+  .step-row{grid-template-columns:minmax(0,1fr) var(--d) minmax(0,1fr);grid-template-rows:var(--d) auto;gap:0 clamp(44px, 4.4vw, 80px)}
+  .step{position:static;gap:8px}
+  .step p{text-wrap:balance}
+  .step:nth-child(1){grid-area:1 / 1;justify-self:end;align-self:center}
+  .step:nth-child(2){grid-area:2 / 2;align-items:center;text-align:center;padding-top:calc(var(--sn) * .75 + 16px)}
+  .step:nth-child(3){grid-area:1 / 3;justify-self:start;align-self:center}
+  .step .sn{position:absolute;translate:-50% -50%}
+  .step:nth-child(1) .sn{top:calc(var(--sec) + var(--d) / 2);left:calc(50% + var(--d) / 2)} /* qa-allow: physical, a point on the circle */
+  .step:nth-child(2) .sn{top:calc(var(--sec) + var(--d));left:50%} /* qa-allow: physical, a point on the circle */
+  .step:nth-child(3) .sn{top:calc(var(--sec) + var(--d) / 2);left:calc(50% - var(--d) / 2)} /* qa-allow: physical, a point on the circle */
+  .loop{display:block;position:absolute;top:var(--sec);left:50%;width:var(--d);height:var(--d);translate:-50% 0} /* qa-allow: physical, centred with translate */
+  .loop-ring{position:absolute;inset:0;width:100%;height:100%;overflow:visible;rotate:-90deg}
+  .loop-ring circle{fill:none}
+  .loop-ring .tr{stroke:var(--fg-line);stroke-width:.45}
+  .loop-ring .dr{stroke:var(--orange);stroke-width:.7;stroke-dasharray:1;stroke-dashoffset:calc(1 - var(--r))}
+  .step:nth-child(1){align-items:flex-end;text-align:end}
+  .loop u{position:absolute;inset:24%;display:grid;place-items:center;border-radius:50%;background:var(--ink);color:#fff;scale:calc(.3 + var(--r) * .7);text-decoration:none;font-weight:700;font-size:calc(var(--d) * .2);line-height:1}
+  .loop u i{grid-area:1 / 1;font-style:normal;opacity:0;transition:opacity .3s var(--ease)}
+  .loop u i.now{opacity:1}
+  .loop u svg{grid-area:1 / 1;width:44%;height:44%;fill:var(--orange);opacity:0}
+  html:not(.anim) .loop u i,html.a11y-still .loop u i{opacity:0}
+  html:not(.anim) .loop u svg,html.a11y-still .loop u svg{opacity:1}
+  .loop b{position:absolute;inset:0;rotate:calc(var(--r) * 360deg)}
+  .loop b svg{position:absolute;top:0;left:50%;width:34px;height:34px;fill:var(--orange);translate:-50% -50%;rotate:137deg} /* qa-allow: physical, sits on the circle */
+  .anim .loop :is(u,b){will-change:scale,rotate}
+}
+
 /* ---------- 4. the testimonials (Almog, 3.11: "ברגע שהגעתי לסקשן הזה הן יזוזו"): a closed stack in the middle deals out to its three places on arrival, once.
    With no script, or with motion off, they are simply in place. Only translate, rotate and opacity move. ---------- */
 .q-grid{--qg:clamp(24px, 2.4vw, 44px)}
@@ -131,6 +171,11 @@ html:not(.anim) .step h3,html.a11y-still .step h3{color:var(--fg)}
   .route svg{rotate:-135deg}
   .step{position:relative;gap:6px 14px}
   .step p{margin-inline-start:calc(var(--sn) * 1.5 + 14px)}
+}
+/* a little more air between the parts above the phone (Liav, 4.11: "עוד ריווחון קטן"), without going back to a loose page */
+@media (min-width:768px){
+  :root{--sec:clamp(64px, 7.2vw, 132px)}
+  .bonus{padding-top:clamp(56px, 5.4vw, 96px)}
 }
 /* the phone gets the full section rhythm, top and bottom. The tightening for "too much empty space" (Almog, 1.11) was about the desktop */
 @media (max-width:767px){

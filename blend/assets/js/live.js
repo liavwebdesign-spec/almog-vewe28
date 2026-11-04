@@ -9,12 +9,14 @@
   var cards = Array.prototype.slice.call(deal.querySelectorAll(".mcard"));
   var steps = document.querySelector(".steps"), route = steps.querySelector(".route"), row = steps.querySelector(".step-row");
   var stepEls = Array.prototype.slice.call(steps.querySelectorAll(".step"));
+  var loopNums = Array.prototype.slice.call(steps.querySelectorAll(".loop u i"));
   var photo = document.querySelector(".about-ph");
   var quotes = Array.prototype.slice.call(document.querySelectorAll(".q"));
   var narrow = matchMedia("(max-width:640px)");
+  var round = matchMedia("(min-width:1024px)");
   var wide = matchMedia("(min-width:1181px)");
   var mouse = matchMedia("(hover:hover) and (pointer:fine)");
-  var EASE = 0.15, LIT = [0, 1 / 3, 2 / 3];
+  var EASE = 0.15, LIT = [0, 1 / 3, 2 / 3], LIT_ROUND = [0.25, 0.5, 0.75];
 
   function clamp(v) { return v < 0 ? 0 : v > 1 ? 1 : v; }
   function smooth(v) { return v * v * (3 - 2 * v); }
@@ -44,7 +46,9 @@
     t.p = wide.matches ? smooth(clamp(y / Math.max(1, m.moves - vh * 0.3))) : 1;
     t.l = smooth(clamp((vh * 0.98 - (m.photo - y)) / (vh * 0.46)));
     t.q = wide.matches ? t.q.map(function () { return 1; }) : m.cards.map(function (top) { return smooth(clamp((vh * 0.98 - (top - y)) / (vh * 0.34))); });
-    t.r = clamp((vh * 0.84 - (m.row - y)) / Math.max(m.rowH, vh * 0.42));
+    t.r = round.matches
+      ? clamp((vh * 0.72 - (m.row - y)) / Math.max(m.rowH * 0.8, vh * 0.42))
+      : clamp((vh * 0.84 - (m.row - y)) / Math.max(m.rowH, vh * 0.42));
     t.mx = pointer === null ? 0 : pointer;
   }
 
@@ -56,7 +60,14 @@
     steps.style.setProperty("--r", s.r.toFixed(4));
     photo.style.setProperty("--l", s.l.toFixed(4));
     cards.forEach(function (c, i) { c.style.setProperty("--q", s.q[i].toFixed(4)); });
-    stepEls.forEach(function (el, i) { el.classList.toggle("lit", still() || s.r >= LIT[i] + 0.01); });
+    var lit = round.matches ? LIT_ROUND : LIT;
+    var reached = 0;
+    stepEls.forEach(function (el, i) {
+      var on = still() || s.r >= lit[i] + 0.01;
+      el.classList.toggle("lit", on);
+      if (on) reached = i;
+    });
+    loopNums.forEach(function (n, i) { n.classList.toggle("now", i === reached); });
   }
 
   var raf = 0;
