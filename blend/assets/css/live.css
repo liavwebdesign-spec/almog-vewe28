@@ -105,7 +105,8 @@ html:not(.anim) .loop u svg,html.a11y-still .loop u svg{opacity:1}
 @media (max-width:1023px){
   .steps{--d:clamp(230px, 40vw, 300px)}
   .loop{margin:0 auto clamp(32px, 5vw, 44px)}
-  .step{padding:clamp(16px, 2.4vw, 22px);gap:6px;border-radius:var(--r);background:var(--paper-2);transition:background .4s var(--ease)}
+  /* the radius is written out here: inside .steps, --r is the plane's progress */
+  .step{padding:clamp(16px, 2.4vw, 22px);gap:6px;border-radius:clamp(16px, 1.3vw, 24px);background:var(--paper-2);transition:background .4s var(--ease)}
   .step .sn{background:#fff}
   .step.lit .sn{background:var(--orange)}
   .step p{margin-top:0}
@@ -120,7 +121,7 @@ html:not(.anim) .loop u svg,html.a11y-still .loop u svg{opacity:1}
   .step{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;gap:2px 14px;padding:14px 16px}
   .step .sn{grid-row:1 / span 2;margin:0}
   .step h3{flex:none}
-  .step p{flex-basis:auto;max-width:none}
+  .step p{flex-basis:auto;max-width:none;text-wrap:balance}
 }
 @media (min-width:1024px){
   .steps{--d:clamp(340px, 31vw, 540px);position:relative}
