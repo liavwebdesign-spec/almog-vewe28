@@ -122,6 +122,9 @@ html:not(.anim) .step h3,html.a11y-still .step h3{color:var(--fg)}
 /* ---------- 4. the testimonials (Almog, 3.11: "ברגע שהגעתי לסקשן הזה הן יזוזו"): a closed stack in the middle deals out to its three places on arrival, once.
    With no script, or with motion off, they are simply in place. Only translate, rotate and opacity move. ---------- */
 .q-grid{--qg:clamp(24px, 2.4vw, 44px)}
+.quotes h2{max-width:none;text-align:center}
+.q{border-radius:var(--r)}
+.q::after{border-radius:inherit}
 .q{position:relative;transform-origin:50% 100%;transition:translate 1s var(--ease),rotate 1s var(--ease),transform .3s var(--ease)}
 .q:nth-child(2){z-index:1}
 .q:nth-child(3){transition-delay:.08s,.08s,0s}
