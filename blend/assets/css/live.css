@@ -97,6 +97,7 @@ html:not(.anim) .step h3,html.a11y-still .step h3{color:var(--fg)}
 .loop u svg{grid-area:1 / 1;width:44%;height:44%;fill:var(--orange);opacity:0}
 html:not(.anim) .loop u i,html.a11y-still .loop u i{opacity:0}
 html:not(.anim) .loop u svg,html.a11y-still .loop u svg{opacity:1}
+html:not(.anim) .loop b,html.a11y-still .loop b{display:none}
 .loop b{position:absolute;inset:0;rotate:calc(var(--r) * 360deg)}
 .loop b svg{position:absolute;top:0;left:50%;width:34px;height:34px;fill:var(--orange);translate:-50% -50%;rotate:137deg} /* qa-allow: physical, sits on the circle */
 .anim .loop :is(u,b){will-change:scale,rotate}
