@@ -40,7 +40,6 @@ html.a11y-contrast :is(.disk,.orbit){display:none}
 .moves{position:relative;z-index:2;overflow-x:clip;overflow-y:visible;background:var(--ink)}
 .moves-foot a,.moves-foot a *{color:#F3F6FA}
 html.a11y-contrast .moves{background:#000}
-.bonus{padding-top:clamp(40px, 4vw, 72px)}
 .mcard:nth-child(1){--s:1.5;--sg:1}
 .mcard:nth-child(2){--s:.5;--sg:-1}
 .mcard:nth-child(3){--s:-.5;--sg:1}
@@ -150,7 +149,16 @@ html:not(.anim) .step h3,html.a11y-still .step h3{color:var(--fg)}
 .ft-fine{align-items:center}
 
 /* the testimonials band: full width, sits directly on the footer (Liav 4.11) */
-.sheet{--sheet-m:0px;margin-inline:0;margin-bottom:0;border-radius:0}
+.sheet{--sheet-m:0px;margin-inline:0;margin-bottom:0;padding-bottom:clamp(40px, 4vw, 72px);border-radius:0}
+
+/* ---------- 6. the guide card (Liav, 4.11): last before the closing, half on the pale band and half on the footer, for depth.
+   The section paints the two colours, so the edge always falls at the card's exact middle, at any height.
+   It rises over the edge once and settles on its slight tilt; with motion off it is simply in place ---------- */
+.bonus{position:relative;z-index:2;background:linear-gradient(var(--paper-2) 50%, #0A1A2E 50%)}
+.bonus-card{box-shadow:0 20px 44px -14px rgba(6,18,31,.5)}
+.rv-on .bonus-card.rv:not(.in){transform:translateY(72px)}
+.rv-on .bonus-card.rv.in{animation:card-over 1s var(--ease) backwards}
+@keyframes card-over{from{opacity:0;transform:translateY(72px) rotate(2.4deg)}}
 
 @media (min-width:1700px){.disk,.orbit{bottom:31%}}
 @media (max-width:1023px){
@@ -178,12 +186,10 @@ html:not(.anim) .step h3,html.a11y-still .step h3{color:var(--fg)}
 /* a little more air between the parts above the phone (Liav, 4.11: "עוד ריווחון קטן"), without going back to a loose page */
 @media (min-width:768px){
   :root{--sec:clamp(64px, 7.2vw, 132px)}
-  .bonus{padding-top:clamp(56px, 5.4vw, 96px)}
 }
 /* the phone gets the full section rhythm, top and bottom. The tightening for "too much empty space" (Almog, 1.11) was about the desktop */
 @media (max-width:767px){
   :root{--sec:64px}
   .moves{padding-top:var(--sec)}
-  .bonus{padding-top:var(--sec)}
-  :is(.bonus,.about,.steps){padding-bottom:var(--sec)}
+  :is(.about,.steps){padding-bottom:var(--sec)}
 }
