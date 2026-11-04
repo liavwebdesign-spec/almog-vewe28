@@ -80,7 +80,7 @@ html:not(.anim) .route b,html.a11y-still .route b{display:none}
 .step{padding-top:0}
 .step .sn{display:grid;place-items:center;width:1.5em;height:1.5em;border-radius:50%;font-size:var(--sn);background:var(--orange);color:var(--ink);transform-origin:50% 50%}
 .step p{color:var(--fg)}
-html.a11y-contrast .step .sn{color:#000}
+html.a11y-contrast :is(.step .sn,.q-tag){color:#000}
 
 /* below the desktop (Liav, 4.11: "פרווה"): the steps stay rounded boxes. The radius is written out: inside .steps, --r is the plane's progress */
 @media (max-width:1023px){
