@@ -149,6 +149,9 @@ html:not(.anim) .step h3,html.a11y-still .step h3{color:var(--fg)}
 .strip{gap:clamp(24px, 2.4vw, 44px)}
 .ft-fine{align-items:center}
 
+/* the testimonials band: full width, sits directly on the footer (Liav 4.11) */
+.sheet{--sheet-m:0px;margin-inline:0;margin-bottom:0;border-radius:0}
+
 @media (min-width:1700px){.disk,.orbit{bottom:31%}}
 @media (max-width:1023px){
   .hero{grid-template-columns:minmax(0,1fr);min-height:0;gap:32px}
