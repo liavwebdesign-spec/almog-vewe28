@@ -80,9 +80,38 @@ html.a11y-contrast .moves{background:#000}
 html:not(.anim) .step .sn,html.a11y-still .step .sn{background:var(--orange);color:var(--ink)}
 html:not(.anim) .step h3,html.a11y-still .step h3{color:var(--fg)}
 
+/* ---------- 4. the testimonials (Almog, 3.11: "ברגע שהגעתי לסקשן הזה הן יזוזו"): a closed stack in the middle deals out to its three places on arrival, once.
+   With no script, or with motion off, they are simply in place. Only translate, rotate and opacity move. ---------- */
+.q-grid{--qg:clamp(24px, 2.4vw, 44px)}
+.q{position:relative;transform-origin:50% 100%;transition:translate 1s var(--ease),rotate 1s var(--ease),transform .3s var(--ease)}
+.q:nth-child(2){z-index:1}
+.q:nth-child(3){transition-delay:.08s,.08s,0s}
+/* white cards on a pale page need a soft shadow to read as a stack; it fades as they land */
+.q::after{content:"";position:absolute;inset:0;pointer-events:none;box-shadow:0 18px 36px -16px rgba(20,61,107,.34);opacity:0;transition:opacity .6s var(--ease) .4s}
+.q.armed{transition:none}
+.q.armed::after{opacity:1;transition:none}
+.q.armed:nth-child(1){translate:calc(-100% - var(--qg)) 14px;rotate:-5deg}
+.q.armed:nth-child(2){translate:0 -6px;rotate:1deg}
+.q.armed:nth-child(3){translate:calc(100% + var(--qg)) 14px;rotate:5deg}
+@media (max-width:640px){
+  /* one column: each card comes in a little tilted from its side and straightens, like the service cards */
+  .q.armed:nth-child(odd){translate:16px 24px;rotate:2.5deg}
+  .q.armed:nth-child(even){translate:-16px 24px;rotate:-2.5deg}
+}
+@media print{.q.armed:nth-child(n){translate:none;rotate:none}}
+
+/* ---------- 5. the photo in "נעים להכיר": lands like a card as you scroll to it, and lies straight before you read ---------- */
+.about-ph{--t:3deg;transform-origin:50% 100%;rotate:calc((1 - var(--l, 1)) * var(--t) * -1);translate:0 calc((1 - var(--l, 1)) * 40px)}
+.anim .about-ph{will-change:translate,rotate}
+@media (max-width:640px){.about-ph{--t:2deg}}
+
+/* tightened like the second direction (QA 4.11): the fine print on one line, the gaps on the sheet all alike */
+.strip{gap:clamp(24px, 2.4vw, 44px)}
+.ft-fine{align-items:center}
+
 @media (min-width:1700px){.disk,.orbit{bottom:31%}}
 @media (max-width:1023px){
-  .hero{grid-template-columns:minmax(0,1fr);min-height:0;gap:16px}
+  .hero{grid-template-columns:minmax(0,1fr);min-height:0;gap:32px}
   .hero h1{font-size:calc(clamp(52px, 8vw, 76px) * var(--a11y-scale))}
   .hero-txt{padding-bottom:0}
   .hero-vis{max-width:none;height:clamp(340px, 96vw, 620px);margin-inline:calc(var(--gutter) * -1)}
